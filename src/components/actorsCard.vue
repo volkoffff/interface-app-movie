@@ -13,12 +13,9 @@ defineProps({
 
 
 <template>
-    <router-link :to="`/actors/${actor.id}`">
+    <router-link :to="`/actor/${actor.id}`">
         {{ actor.firstName }} {{ actor.lastName }}
         {{ actor.nationalite.nationalite }}
-        
-        <div v-for="movie in actor.movies">
-            {{ movie.title }}
-        </div>
+
     </router-link>
 </template>

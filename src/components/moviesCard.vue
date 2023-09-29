@@ -18,8 +18,5 @@ defineProps({
             {{ movie.category.name }}
             {{ movie.duration }} minutes
             
-            <div v-for="actor in movie.actors">
-                {{ actor.firstName }} {{ actor.lastName }}
-            </div>
     </router-link>
 </template>
