@@ -1,21 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
 }
-
-nav {
-  width: 100%;
-  padding: 20px;
+:root {
+  --black: #20211A;
+  --black-background: #171c1f;
+  --white: #F5F5F5;
+  --cream2: #95999c;
+  --cream: #D8D1CC;
+  --main: #3786e5;
+}
+body {
+  background: var(--black-background);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.main-btn {
+  background: var(--main);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+.white-btn {
+  background: var(--main);
+  color: var(--white);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+.translucide-btn {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--white);
+  border: 0;
+  font-size: 16px;
+  padding: 15px 25px 15px 20px;
   display: flex;
   gap: 10px;
-  background: gainsboro;
+  align-items: center;
+  border-radius: 8px;
+  font-weight: 500;
+  width: fit-content;
 }
-
+.translucide-main-btn {
+  background: var(--main);
+  color: var(--white);
+  border: 0;
+  font-size: 16px;
+  padding: 15px 25px 15px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-radius: 8px;
+  font-weight: 500;
+  width: fit-content;
+}
+.translucide-btn:hover {
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+.translucide-main-btn:hover {
+  cursor: pointer;
+  background: #2d79d6;
+}
+.chip {
+  background: rgba(255, 255, 255, 0.253);
+  color: var(--white);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  width: fit-content;
+}
+nav {
+  width: calc(100% - 80px);
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  border-radius: 16px;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(24, 25, 25, 0.774);
+  backdrop-filter: blur(20px) saturate(180%);
+  font-size: 16px;
+  position: fixed;
+  z-index: 100;
+}
+.nav-in {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.active-link {
+  color: var(--main); /* Appliquez ici le style que vous souhaitez pour les liens actifs */
+  /* font-weight: 500; */
+}
 a {
   text-decoration: none;
-  color: #000;
+  transition: 0.1s ease-out;
 }
-a:hover {
+.opacity-hover:hover {
+  opacity: 0.7;
+}
+
+.top-movie {
+  height: 100vh;
+  position: relative;
+  background: linear-gradient( rgba(0, 0, 0, 0),var(--black-background) 70%), url(https://fr.web.img5.acsta.net/pictures/23/04/03/15/05/1583867.jpg/r_5000_x);
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.top-movie-cache {
+  height: 100vh;
+  position: absolute;
+  backdrop-filter: blur(20px);
+  width: 100%;
+  z-index: 1;
+}
+.top-movie-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+}
+.top-movie-bottom > div > img {
+  max-height: 500px;
+  border-radius: 8px;
+  width: auto;
+}
+.top-movie-bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.top-movie-bottom-tittle {
+  font-size: 32px;
+  font-weight: 600;
+}
+.top-movie-bottom-description {
+  font-size: 18px;
+}
+.jc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+}
+.gap10 {
+  gap: 10px;
+}
+.flexcol {
+  display: flex;
+  flex-direction: column;
+}
+.mini-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mini-section > .subtittle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cream2);
+}
+.top-movie-bottom-acteurs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.underline-hover:hover {
   text-decoration: underline;
 }

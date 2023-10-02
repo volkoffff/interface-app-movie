@@ -8,12 +8,10 @@ const route = useRoute();
 const routeId = route.params.id;
 
 
-
-
 const data = ref('');
 
 onMounted(async () => {
-    const response = await axios.get(`http://127.0.0.1:8000/api/actors/${routeId}`);
+    const response = await axios.get(`http://127.0.0.1:8000/api/categories/${routeId}`);
     data.value = response.data;
 })
 
@@ -23,8 +21,7 @@ onMounted(async () => {
 
     <div v-if="data">
 
-        {{ data.firstName }} {{ data.lastName }}
-        {{ data.nationalite.nationalite }}
+        {{ data.name }}
         
         <div v-for="movie in data.movies">
             <RouterLink :to="`/movie/${movie.id}`">
