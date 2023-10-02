@@ -3,7 +3,7 @@
 import { defineProps } from 'vue';
 
 defineProps({
-    actor: {
+    categorie: {
         type: Object,
         required: true
     }
@@ -13,8 +13,7 @@ defineProps({
 
 
 <template>
-    <router-link :to="`/actor/${actor.id}`">
-        {{ actor.firstName }} {{ actor.lastName }}
-        {{ actor.nationalite.nationalite }}
+    <router-link :to="`/categorie/${categorie.id}`">
+        {{ categorie.name }}
     </router-link>
 </template>

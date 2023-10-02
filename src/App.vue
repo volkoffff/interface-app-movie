@@ -7,13 +7,33 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
 
   <header>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/movies">Movies</RouterLink>
-        <RouterLink to="/actors">Actors</RouterLink>
-      </nav>
+    <nav>
+      <div class="nav-in">
+        <RouterLink class="opacity-hover" to="/" v-slot="{ isActive }">
+          <span :class="{ 'active-link': isActive }">Home</span>
+        </RouterLink>
+        <RouterLink class="opacity-hover" to="/movies" v-slot="{ isActive }">
+          <span :class="{ 'active-link': isActive }">Movies</span>
+        </RouterLink>
+        <RouterLink class="opacity-hover" to="/actors" v-slot="{ isActive }">
+          <span :class="{ 'active-link': isActive }">Actors</span>
+        </RouterLink>
+        <RouterLink class="opacity-hover" to="/categories" v-slot="{ isActive }">
+          <span :class="{ 'active-link': isActive }">Categories</span>
+        </RouterLink>
+      </div>
+      <div class="nav-in">
+        <RouterLink to="/">
+          sign in
+        </RouterLink>
+        <RouterLink class="white-btn" to="/">
+          sign up
+        </RouterLink>
+      </div>
+    </nav>
   </header>
-
-  <RouterView />
+  <div class="page">
+    <RouterView />
+  </div>
 
 </template>
