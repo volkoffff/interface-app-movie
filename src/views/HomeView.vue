@@ -20,6 +20,36 @@ onMounted(async () => {
 })
 
 
+document.addEventListener("DOMContentLoaded", function() {
+  console.log('dom chargé');
+});
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  var youtubeContainer = document.querySelectorAll('.youtube-container')
+
+ 
+  youtubeContainer.forEach(function(container) {
+      var frame = container.querySelector('iframe');
+      var dataYtb = container.getAttribute('data-ytbsrc');
+      console.log(dataYtb);
+
+      container.addEventListener('mouseover', function() {
+        frame.setAttribute('src', dataYtb);
+      });
+
+      container.addEventListener('mouseout', function() {
+        frame.setAttribute('src', '');
+      });
+    });
+
+});
+
+
 </script>
 
 <template>
@@ -52,7 +82,16 @@ onMounted(async () => {
         </div>
       </div>
 
-    </div>
 
+      <div class="youtube-container" data-ytbsrc="https://www.youtube.com/embed/WhY7uyc56ms?autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1&playlist=WhY7uyc56ms">
+        <iframe src="url"></iframe>
+      </div>     
+    
+      <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs??autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+        <iframe src="url"></iframe>
+      </div>
+    </div>
+    
+    <!-- &mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&&rel=0&enablejsapi=1& -->
 
 </template>
