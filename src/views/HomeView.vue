@@ -39,11 +39,28 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(dataYtb);
 
       container.addEventListener('mouseover', function() {
-        frame.setAttribute('src', dataYtb);
+        console.log('affichage iframe');
+        // Créez un élément iframe
+        var iframe = document.createElement('iframe');
+        
+        // Configurez les attributs de l'iframe
+        iframe.setAttribute('src', dataYtb);
+        iframe.setAttribute('frameborder', 0);
+        
+        // Ajoutez l'iframe à la div en utilisant appendChild
+        container.appendChild(iframe);
       });
 
       container.addEventListener('mouseout', function() {
-        frame.setAttribute('src', '');
+        // Sélectionnez l'iframe précédemment ajouté
+        var iframeToRemove = container.querySelector('iframe');
+        
+        // Vérifiez si l'iframe existe avant de tenter de le supprimer
+        if (iframeToRemove) {
+          console.log('iframeToRemove');
+          // Supprimez l'iframe de la div
+          container.removeChild(iframeToRemove);
+        }
       });
     });
 
@@ -83,13 +100,68 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
 
 
-      <div class="youtube-container" data-ytbsrc="https://www.youtube.com/embed/WhY7uyc56ms?autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1&playlist=WhY7uyc56ms">
-        <iframe src="url"></iframe>
+      <!-- <div class="youtube-container" data-ytbsrc="https://www.youtube.com/embed/WhY7uyc56ms?autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
       </div>     
     
-      <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs??autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
-        <iframe src="url"></iframe>
+      <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?autoplay=1&loop=1&color=white&controls=0&mute=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+      </div> -->
+
+      <div class="card-container">
+
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+
+
+
+
+
       </div>
+        
     </div>
     
     <!-- &mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&&rel=0&enablejsapi=1& -->
