@@ -20,6 +20,9 @@ const fetchData = async () => {
     params: {
       title: searchQuery.value, // Utilisez la valeur de recherche dans la requête
     },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+    },
   });
 
   data.value = response.data["hydra:member"];

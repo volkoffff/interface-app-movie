@@ -12,10 +12,18 @@ const data2 = ref('');
 
     console.log(routeId);
 onMounted(async () => {
-    const response = await axios.get(`http://127.0.0.1:8000/api/movies/${routeId}`);
+    const response = await axios.get(`http://127.0.0.1:8000/api/movies/${routeId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        },
+    });
     data.value = response.data;
     const cathegory = ref(data.value.category.id);
-    const response2 = await axios.get(`http://127.0.0.1:8000/api/categories/${cathegory.value}`);
+    const response2 = await axios.get(`http://127.0.0.1:8000/api/categories/${cathegory.value}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        },
+    });
     data2.value = response2.data;
 
 

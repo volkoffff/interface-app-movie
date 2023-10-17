@@ -8,7 +8,11 @@ import axios from 'axios'
 const data = ref('');
 
 onMounted(async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/categories');
+    const response = await axios.get('http://127.0.0.1:8000/api/categories', {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        },
+    });
     data.value = response.data["hydra:member"];
 })
 

@@ -10,12 +10,20 @@ const data = ref('');
 const dataActor = ref('');
 
 onMounted(async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/movies');
+    const response = await axios.get('http://127.0.0.1:8000/api/movies', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    });
     data.value = response.data["hydra:member"];
 })
 
 onMounted(async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/actors');
+    const response = await axios.get('http://127.0.0.1:8000/api/actors', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    });
     dataActor.value = response.data["hydra:member"];
 })
 
@@ -131,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="flex1">
                   <p class="card-movie-tittle-main">Miraculous</p>
                   <div class="jc gap5">
-                    <div class="mini-chip mt-1">Action</div>
+                    <div class="mini-chip ">Action</div>
                     <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
                   </div>
                 </div>
@@ -156,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="flex1">
                   <p class="card-movie-tittle-main">Miraculous</p>
                   <div class="jc gap5">
-                    <div class="mini-chip mt-1">Action</div>
+                    <div class="mini-chip ">Action</div>
                     <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
                   </div>
                 </div>
@@ -181,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="flex1">
                   <p class="card-movie-tittle-main">Miraculous</p>
                   <div class="jc gap5">
-                    <div class="mini-chip mt-1">Action</div>
+                    <div class="mini-chip ">Action</div>
                     <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
                   </div>
                 </div>
@@ -206,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="flex1">
                   <p class="card-movie-tittle-main">Miraculous</p>
                   <div class="jc gap5">
-                    <div class="mini-chip mt-1">Action</div>
+                    <div class="mini-chip ">Action</div>
                     <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
                   </div>
                 </div>
@@ -231,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="flex1">
                   <p class="card-movie-tittle-main">Miraculous</p>
                   <div class="jc gap5">
-                    <div class="mini-chip mt-1">Action</div>
+                    <div class="mini-chip ">Action</div>
                     <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
                   </div>
                 </div>
