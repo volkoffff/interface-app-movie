@@ -33,7 +33,7 @@ import { RouterLink, RouterView } from 'vue-router'
     </nav>
   </header>
   <div class="page">
-    <RouterView />
+    <RouterView :key="$route.path"/>
   </div>
 
 </template>
