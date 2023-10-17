@@ -21,14 +21,6 @@ onMounted(async () => {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  console.log('dom chargé');
-});
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
 
   var youtubeContainer = document.querySelectorAll('.youtube-container')
 
@@ -67,6 +59,25 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+document.addEventListener("DOMContentLoaded", function() {
+  const cardHover = document.querySelectorAll('.card-movie-image-container');
+  
+  cardHover.forEach(function(card) {
+    const cardInfo = card.querySelector('.card-movie-info-spawn');
+    card.addEventListener('mouseover', function() {
+      console.log(cardInfo);
+      cardInfo.classList.add('active');
+      card.style.zIndex = '100';
+    });
+    card.addEventListener('mouseout', function() {
+      cardInfo.classList.remove('active');
+      card.style.zIndex = '1';
+    });
+  });
+
+})
+
+
 </script>
 
 <template>
@@ -78,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div>
 
       <h3>Liste des derniers ajouts</h3>
+
       <div v-for="(movie, index) in data" :key="movie.id">
         <div v-if="index < 4">
           <moviesCard :movie="movie" />
@@ -85,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
 
     </div>
+
 
     <br>
     <hr>
@@ -110,8 +123,122 @@ document.addEventListener("DOMContentLoaded", function() {
 
         <div class="card-movie">
           <div class="card-movie-image-container">
-            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
+            <div class="movie-169"></div>
             <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+            <div class="card-movie-info-spawn">
+              
+                <div class="flex1">
+                  <p class="card-movie-tittle-main">Miraculous</p>
+                  <div class="jc gap5">
+                    <div class="mini-chip mt-1">Action</div>
+                    <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
+                  </div>
+                </div>
+                <div class="flex1 ">
+                  <p class="card-movie-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum mollitia maxime magni quisquam modi fugit voluptates error ea dolor delectus reprehenderit laudantium amet sequi libero impedit debitis, necessitatibus et suscipit.</p>
+                </div>
+             
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <div class="movie-169"></div>
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+            <div class="card-movie-info-spawn">
+              
+                <div class="flex1">
+                  <p class="card-movie-tittle-main">Miraculous</p>
+                  <div class="jc gap5">
+                    <div class="mini-chip mt-1">Action</div>
+                    <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
+                  </div>
+                </div>
+                <div class="flex1 ">
+                  <p class="card-movie-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum mollitia maxime magni quisquam modi fugit voluptates error ea dolor delectus reprehenderit laudantium amet sequi libero impedit debitis, necessitatibus et suscipit.</p>
+                </div>
+             
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <div class="movie-169"></div>
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+            <div class="card-movie-info-spawn">
+              
+                <div class="flex1">
+                  <p class="card-movie-tittle-main">Miraculous</p>
+                  <div class="jc gap5">
+                    <div class="mini-chip mt-1">Action</div>
+                    <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
+                  </div>
+                </div>
+                <div class="flex1 ">
+                  <p class="card-movie-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum mollitia maxime magni quisquam modi fugit voluptates error ea dolor delectus reprehenderit laudantium amet sequi libero impedit debitis, necessitatibus et suscipit.</p>
+                </div>
+             
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <div class="movie-169"></div>
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+            <div class="card-movie-info-spawn">
+              
+                <div class="flex1">
+                  <p class="card-movie-tittle-main">Miraculous</p>
+                  <div class="jc gap5">
+                    <div class="mini-chip mt-1">Action</div>
+                    <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
+                  </div>
+                </div>
+                <div class="flex1 ">
+                  <p class="card-movie-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum mollitia maxime magni quisquam modi fugit voluptates error ea dolor delectus reprehenderit laudantium amet sequi libero impedit debitis, necessitatibus et suscipit.</p>
+                </div>
+             
+            </div>
+          </div>
+          <div class="card-movie-tittle">
+            <p class="card-movie-tittle-main">Miraculous</p>
+            <p class="card-movie-tittle-second">Action</p>
+          </div>
+        </div>
+        <div class="card-movie">
+          <div class="card-movie-image-container">
+            <div class="movie-169"></div>
+            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
+            </div>
+            <div class="card-movie-info-spawn">
+              
+                <div class="flex1">
+                  <p class="card-movie-tittle-main">Miraculous</p>
+                  <div class="jc gap5">
+                    <div class="mini-chip mt-1">Action</div>
+                    <p class="card-movie-tittle-second">•</p><p class="card-movie-tittle-second">98 minutes</p>
+                  </div>
+                </div>
+                <div class="flex1 ">
+                  <p class="card-movie-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum mollitia maxime magni quisquam modi fugit voluptates error ea dolor delectus reprehenderit laudantium amet sequi libero impedit debitis, necessitatibus et suscipit.</p>
+                </div>
+             
             </div>
           </div>
           <div class="card-movie-tittle">
@@ -120,41 +247,10 @@ document.addEventListener("DOMContentLoaded", function() {
           </div>
         </div>
 
-        <div class="card-movie">
-          <div class="card-movie-image-container">
-            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
-            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
-            </div>
-          </div>
-          <div class="card-movie-tittle">
-            <p class="card-movie-tittle-main">Miraculous</p>
-            <p class="card-movie-tittle-second">Action</p>
-          </div>
-        </div>
 
-        <div class="card-movie">
-          <div class="card-movie-image-container">
-            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
-            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
-            </div>
-          </div>
-          <div class="card-movie-tittle">
-            <p class="card-movie-tittle-main">Miraculous</p>
-            <p class="card-movie-tittle-second">Action</p>
-          </div>
-        </div>
+ 
 
-        <div class="card-movie">
-          <div class="card-movie-image-container">
-            <img class="movie-169" src="https://www.geekjunior.fr/wp-content/uploads/2023/04/miraculous.jpg" alt="">
-            <div class="youtube-container" data-ytbsrc="https://www.youtube-nocookie.com/embed/QidIZNU91Xs?si=n5u8Jj4q_urYPI2s&amp;autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1">
-            </div>
-          </div>
-          <div class="card-movie-tittle">
-            <p class="card-movie-tittle-main">Miraculous</p>
-            <p class="card-movie-tittle-second">Action</p>
-          </div>
-        </div>
+       
 
 
 

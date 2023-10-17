@@ -1,15 +1,16 @@
 <script setup>
 import moviesCard from '../components/moviesCard.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, RouterLink, RouterView } from 'vue-router';
 import { onMounted, ref, onBeforeUnmount } from 'vue';
 import axios from 'axios';
 
 const route = useRoute();
-const routeId = route.params.id;
+const routeId = route.params.id
 
 const data = ref('');
 const data2 = ref('');
 
+    console.log(routeId);
 onMounted(async () => {
     const response = await axios.get(`http://127.0.0.1:8000/api/movies/${routeId}`);
     data.value = response.data;
@@ -64,10 +65,6 @@ window.addEventListener('scroll', updateBackgroundSize);
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', updateBackgroundSize);
 });
-
-
-
-
 
 
 </script>
@@ -131,7 +128,10 @@ onBeforeUnmount(() => {
                     </div>
                     <div class="jc">
                         <button class="translucide-btn"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"></path></svg>Bande annonce</button>
-                        <button class="translucide-main-btn"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M832 312H696v-16c0-101.6-82.4-184-184-184s-184 82.4-184 184v16H192c-17.7 0-32 14.3-32 32v536c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V344c0-17.7-14.3-32-32-32zm-208 0H400v-16c0-61.9 50.1-112 112-112s112 50.1 112 112v16z"></path></svg>Louer</button>
+                        <RouterLink :to="`/movie/edit/${data.id}`" :data="data" class="translucide-main-btn">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
+                            Modifier
+                        </RouterLink>
                     </div>
                 </div> <!-- top-movie-bottom-left -->
 
@@ -143,15 +143,16 @@ onBeforeUnmount(() => {
         <div style="height: 100vh;">
             <div v-if="data2">
                 <div v-for="(movie, index ) in data2.movies" :key="movie.id">
-                    <div v-if="index < 8">
+                    <div v-if="index < 3">
                         <moviesCard :id="movie.id"/>
                     </div>
                 </div>
             </div>
         </div>
             
-
-
+        
+    
     </div>
+
 
 </template>

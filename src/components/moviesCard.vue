@@ -1,8 +1,9 @@
 
-
 <script setup>
 import { ref, onMounted, watch, defineProps } from 'vue';
 import axios from 'axios';
+import { RouterLink } from 'vue-router';
+import {RouterView} from 'vue-router';
 
 const props = defineProps({
     movie: {
@@ -51,12 +52,13 @@ async function fetchMovie(id) {
 
 <template>
     <div>
+        
         <div v-if="movieData">
-            <router-link :to="`/movie/${movieData.id}`">
+            <RouterLink :to="`/movie/${movieData.id}`">
                 {{ movieData.title }}
                 {{ movieData.category.name }}
                 {{ movieData.duration }} minutes
-            </router-link>
+            </RouterLink>
         </div>
         <div v-else>
             Chargement en cours...
