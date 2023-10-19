@@ -47,7 +47,7 @@
 <template>
   <div style="padding-top: 5rem;">
     <h1>login page</h1>
-    <form @submit.prevent="submitForm">
+    <form @submit="submitForm" action="/">
       <label for="email">Email</label>
       <input type="email" style="color: black" v-model="email" id="email">
       <label for="password">Mot de passe</label>
