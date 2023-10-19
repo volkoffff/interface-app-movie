@@ -23,7 +23,12 @@ if (!movieData.value) {
     const movieId = ref(props.id);
 
     onMounted(async () => {
-            const response = await axios.get(`http://127.0.0.1:8000/api/movies/${movieId.value}`);
+            const response = await axios.get(`http://127.0.0.1:8000/api/movies/${movieId.value}`, {
+                headers: {
+                Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+            },
+            });
+            
             movieData.value = response.data;
     });
 }
@@ -41,7 +46,11 @@ watch(() => props.id, (newId, oldId) => {
 
 async function fetchMovie(id) {
     try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/movies/${id}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/movies/${id}`, {
+            headers: {
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        },
+        });
         movieData.value = response.data;
     } catch (error) {
         console.error(error);

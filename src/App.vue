@@ -23,10 +23,10 @@ import { RouterLink, RouterView } from 'vue-router'
         </RouterLink>
       </div>
       <div class="nav-in">
-        <RouterLink to="/">
+        <RouterLink to="/login">
           sign in
         </RouterLink>
-        <RouterLink class="white-btn" to="/">
+        <RouterLink class="white-btn" to="">
           sign up
         </RouterLink>
       </div>
