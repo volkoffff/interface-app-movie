@@ -38,19 +38,34 @@ window.addEventListener('scroll', removeFocusOnScroll);
 </script>
 
 <template>
+  <div class="search">
+    <svg class="search-icon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     <input @input="fetchData" v-model="searchQuery" class="searchbar-navbar" placeholder="Search a movie" type="text">
     <div class="searchbar-navbar-result">
-        <div v-for="(movie, index) in data" :key="movie.id">
-            <div class="movie-card">
-                <div class="movie-card-image" style="background-image: url(https://i.etsystatic.com/27725708/r/il/008c5a/2904647259/il_fullxfull.2904647259_ilg7.jpg);"></div>
-                <p class="movie-card-title">{{ movie.title }}</p>
-            </div>
+      <div v-for="(movie, index) in data" :key="movie.id">
+        <div class="movie-card">
+          <div class="movie-card-image" style="background-image: url(https://i.etsystatic.com/27725708/r/il/008c5a/2904647259/il_fullxfull.2904647259_ilg7.jpg);"></div>
+          <p class="movie-card-title">{{ movie.title }}</p>
+        </div>
       </div>
     </div>
-    
+  </div>
 </template>
 
 <style>
+.search {
+  position: relative;
+}
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+.search-icon > * {
+    color: rgb(176, 176, 176);
+}
 .searchbar-navbar {
     background: rgba(83, 85, 85, 0.707);
     position: relative;
@@ -58,7 +73,7 @@ window.addEventListener('scroll', removeFocusOnScroll);
     color: rgb(230, 226, 226);
     border: 0;
     border-radius: 8px;
-    padding: 10px 15px;
+    padding: 10px 15px 10px 40px;
 }
 .searchbar-navbar::placeholder {
     color: azure;
