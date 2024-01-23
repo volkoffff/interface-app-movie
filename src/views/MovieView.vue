@@ -21,6 +21,7 @@ onMounted(() => {
     load();
 });
 
+// Fonction pour charger les données du film
 const load = async() => {
 
     const response = await axios.get(`http://127.0.0.1:8000/api/movies/${routeId}`, {
@@ -30,12 +31,13 @@ const load = async() => {
     });
     data.value = response.data; 
 
-    //attribution for the modal 
+    //attribution of data for the modal 
+    console.log(data.value);
     editedMovieTitle.value = data.value.title;
+    console.log(data.value.description);
     editedMovieDescription.value = data.value.description;
     console.log(data.value.releaseDate);
     editedMovieDate.value = data.value.releaseDate.split('T')[0];
-    console.log(data.value)
 
     const cathegory = ref(data.value.category.id);
     const response2 = await axios.get(`http://127.0.0.1:8000/api/categories/${cathegory.value}`, {
@@ -44,8 +46,7 @@ const load = async() => {
         },
     });
     data2.value = response2.data;
-
-
+ 
     // Fonction pour ajouter la classe "active" au banner-movie au scroll de 80vh
     function addActiveClassOnScroll() {
     const bannerMovie = document.querySelector('.banner-movie');
@@ -68,7 +69,6 @@ const load = async() => {
 
     // Appel de la fonction pour l'activer
     addActiveClassOnScroll();    
-
 }
 
 
@@ -89,7 +89,7 @@ async function updateMovieTitle() {
             'Content-Type': 'application/merge-patch+json',
           };
 
-          const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value }); // Nouveau titre du film
+          const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value, }); // Nouveau titre du film
 
           // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
           await axios.patch(`http://127.0.0.1:8000/api/movies/${data.value.id}`, updatedMovie, { headers });
@@ -251,7 +251,7 @@ function textToJson(inputText) {
         <div style="height: 100vh;">
             <div v-if="data2">
                 <div v-for="(movie, index ) in data2.movies" :key="movie.id">
-                    <div v-if="index < 3">
+                    <div v-if="index < 8">
                         <moviesCard :id="movie.id"/>
                     </div>
                 </div>
