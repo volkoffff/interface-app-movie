@@ -22,22 +22,14 @@ onMounted(() => {
 });
 
 // Fonction pour charger les données du film
-const load = async() => {
+const load = async () => {
 
     const response = await axios.get(`http://127.0.0.1:8000/api/movies/${routeId}`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
     });
-    data.value = response.data; 
-
-    //attribution of data for the modal 
-    console.log(data.value);
-    editedMovieTitle.value = data.value.title;
-    console.log(data.value.description);
-    editedMovieDescription.value = data.value.description;
-    console.log(data.value.releaseDate);
-    editedMovieDate.value = data.value.releaseDate.split('T')[0];
+    data.value = response.data;
 
     const cathegory = ref(data.value.category.id);
     const response2 = await axios.get(`http://127.0.0.1:8000/api/categories/${cathegory.value}`, {
@@ -46,29 +38,34 @@ const load = async() => {
         },
     });
     data2.value = response2.data;
- 
+
+    //attribution of data for the modal 
+    editedMovieTitle.value = data.value.title;
+    editedMovieDescription.value = data.value.description;
+    editedMovieDate.value = data.value.releaseDate.split('T')[0];
+
     // Fonction pour ajouter la classe "active" au banner-movie au scroll de 80vh
     function addActiveClassOnScroll() {
-    const bannerMovie = document.querySelector('.banner-movie');
+        const bannerMovie = document.querySelector('.banner-movie');
 
 
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
 
-        // Calcul de 80vh
-        const eightyVH = (windowHeight * 60) / 100;
+            // Calcul de 80vh
+            const eightyVH = (windowHeight * 60) / 100;
 
-        if (scrollPosition >= eightyVH) {
-        bannerMovie.classList.add('active');
-        } else {
-        bannerMovie.classList.remove('active');
-        }
-    });
+            if (scrollPosition >= eightyVH) {
+                bannerMovie.classList.add('active');
+            } else {
+                bannerMovie.classList.remove('active');
+            }
+        });
     }
 
     // Appel de la fonction pour l'activer
-    addActiveClassOnScroll();    
+    addActiveClassOnScroll();
 }
 
 
@@ -78,45 +75,43 @@ async function updateMovieTitle() {
     console.log(data.value);
     if (ModifyState) {
         try {
-          const token = localStorage.getItem('authToken'); // Récupérer le token d'authentification
-          if (!token) {
-            //--- rediriger l'utilisateur vers la page de connexion
-            this.$router.push('/');
-            return;
-          }
-          const headers = {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/merge-patch+json',
-          };
+            const token = localStorage.getItem('authToken'); // Récupérer le token d'authentification
+            if (!token) {
+                //--- rediriger l'utilisateur vers la page de connexion
+                this.$router.push('/');
+                return;
+            }
+            const headers = {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/merge-patch+json',
+            };
 
-          const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value, }); // Nouveau titre du film
+            const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value, }); // Nouveau titre du film
 
-          // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
-          await axios.patch(`http://127.0.0.1:8000/api/movies/${data.value.id}`, updatedMovie, { headers });
+            // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
+            await axios.patch(`http://127.0.0.1:8000/api/movies/${data.value.id}`, updatedMovie, { headers });
 
-          // Réinitialiser après la mise à jour
-          editedMovieTitle.value = '';
-          editedMovieDescription.value = '';
-          editedMovieDate.value = '';
+            // Réinitialiser après la mise à jour
+            editedMovieTitle.value = '';
+            editedMovieDescription.value = '';
+            editedMovieDate.value = '';
 
-          
-          // Réinitialiser la sélection du film après modification
-          ModifyState.value = false;
-          
+
+            // Réinitialiser la sélection du film après modification
+            ModifyState.value = false;
+
             // Rafraîchir la liste des films
             load();
             errorModificationJson.value = null
 
         } catch (error) {
             // Probleme validation des données
-            if (error.response.data.status == 422) {
-
-                errorModificationJson.value = textToJson(error.response.data.detail);
-                console.log('erreur sur:',errorModificationJson.value);
+            if (error.response.status == 422) {
+                errorModificationJson.value = textToJson(error.response.data["hydra:description"]);
             }
-          console.error('Erreur lors de la mise à jour du du film :', error.response.data);
+            console.error('Erreur lors de la mise à jour du du film :', error.response.data);
         }
-      }
+    }
 }
 
 //scroll
@@ -155,21 +150,21 @@ function toggleModifyFalse() {
 
 
 function textToJson(inputText) {
-  const lines = inputText.split('\n');
-  const result = {};
+    const lines = inputText.split('\n');
+    const result = {};
 
-  lines.forEach(line => {
-    // Utiliser une expression régulière pour extraire la clé et la valeur
-    const match = line.match(/([^:]+): (.+)/);
+    lines.forEach(line => {
+        // Utiliser une expression régulière pour extraire la clé et la valeur
+        const match = line.match(/([^:]+): (.+)/);
 
-    if (match) {
-      const key = match[1].trim();
-      const value = match[2].trim();
-      result[key] = value;
-    }
-  });
+        if (match) {
+            const key = match[1].trim();
+            const value = match[2].trim();
+            result[key] = value;
+        }
+    });
 
-  return result;
+    return result;
 }
 
 
@@ -177,12 +172,12 @@ function textToJson(inputText) {
 
 
 <template>
-
-<div v-if="data">
+    <div v-if="data">
 
         <div class="banner-movie">
             <div class="banner-movie-left">
-                <div class="baner-movie-image-container"><img src="https://fr.web.img5.acsta.net/pictures/23/04/03/15/05/1583867.jpg/r_5000_x"></div>
+                <div class="baner-movie-image-container"><img
+                        src="https://fr.web.img5.acsta.net/pictures/23/04/03/15/05/1583867.jpg/r_5000_x"></div>
                 <div class="baner-movie-title">{{ data.title }}</div>
                 <RouterLink class="chip" :to="`/categorie/${data.category.id}`">
                     {{ data.category.name }}
@@ -193,7 +188,7 @@ function textToJson(inputText) {
             </div>
         </div>
 
-        <div class="top-movie" >
+        <div class="top-movie">
 
             <div class="top-movie-cache"></div>
 
@@ -235,9 +230,19 @@ function textToJson(inputText) {
                         </div>
                     </div>
                     <div class="jc">
-                        <button class="translucide-btn"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"></path></svg>Bande annonce</button>
+                        <button class="translucide-btn"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z">
+                                </path>
+                            </svg>Bande annonce</button>
                         <div @click="toggleModifyTrue()" class="translucide-main-btn">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em"
+                                width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z">
+                                </path>
+                            </svg>
                             Modifier
                         </div>
                     </div>
@@ -252,136 +257,129 @@ function textToJson(inputText) {
             <div v-if="data2">
                 <div v-for="(movie, index ) in data2.movies" :key="movie.id">
                     <div v-if="index < 8">
-                        <moviesCard :id="movie.id"/>
+                        <moviesCard :id="movie.id" />
                     </div>
                 </div>
             </div>
         </div>
-            
-        
-    
+
+
         <div :class="['bg-modal', { 'hidden': !ModifyState }]">
-
-        <div class="modal">
-            <div class="modal-top"><div @click="toggleModifyFalse()"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg></div></div>
-            <h2>Modification d'un Film</h2>
-            <form @submit.prevent="updateMovieTitle" class="form-modal">
-                <div class="form-group">
-                    <label for="editMovieTitle">Nom du film</label>
-                    <input
-                    :class="[{ 'error-border': errorModificationJson && errorModificationJson.title }]"
-                    type="text"
-                    class="form-control"
-                    id="editMovieTitle"
-                    v-model="editedMovieTitle"
-                    :placeholder="data.title"
-                    />
-
-                    <div class="error-text" v-if="errorModificationJson && errorModificationJson.title" >• {{ errorModificationJson.title }}</div>
+            <div class="modal">
+                <div class="modal-top">
+                    <div @click="toggleModifyFalse()"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                            viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z">
+                            </path>
+                        </svg></div>
                 </div>
+                <h2>Modification d'un Film</h2>
+                <form @submit.prevent="updateMovieTitle" class="form-modal">
+                    <div class="form-group">
+                        <label for="editMovieTitle">Nom du film</label>
+                        <input :class="[{ 'error-border': errorModificationJson && errorModificationJson.title }]"
+                            type="text" class="form-control" id="editMovieTitle" v-model="editedMovieTitle"
+                            :placeholder="data.title" />
 
-                <div class="form-group">
-                    <label for="editMovieDescription">Description</label>
-                    <input
-                    :class="[{ 'error-border': errorModificationJson && errorModificationJson.description }]"
-                    type="text"
-                    class="form-control"
-                    id="editMovieDescription"
-                    v-model="editedMovieDescription"
-                    :placeholder="data.description"
-                    />
+                        <div class="error-text" v-if="errorModificationJson && errorModificationJson.title">• {{
+                            errorModificationJson.title }}</div>
+                    </div>
 
-                    <div class="error-text" v-if="errorModificationJson && errorModificationJson.description" >• {{ errorModificationJson.description }}</div>
-                </div>
+                    <div class="form-group">
+                        <label for="editMovieDescription">Description</label>
+                        <input :class="[{ 'error-border': errorModificationJson && errorModificationJson.description }]"
+                            type="text" class="form-control" id="editMovieDescription" v-model="editedMovieDescription"
+                            :placeholder="data.description" />
 
-                <div class="form-group">
-                    <label for="editMovieDate">Date de parution</label>
-                    <input
-                    :class="[{ 'error-border': errorModificationJson && errorModificationJson.releaseDate }]"
-                    type="date"
-                    class="form-control"
-                    id="editMovieDate"
-                    v-model="editedMovieDate"
-                    :placeholder="data.date"
-                    />
+                        <div class="error-text" v-if="errorModificationJson && errorModificationJson.description">• {{
+                            errorModificationJson.description }}</div>
+                    </div>
 
-                    <div class="error-text" v-if="errorModificationJson && errorModificationJson.releaseDate" >• {{ errorModificationJson.releaseDate }}</div>
-                </div>
-                
-                <div class="container-btn">
-                    <button type="submit" class="btn main-btn">Modifier</button>
-                </div>
-            </form>
-        </div>
-        
-        
-    </div>
+                    <div class="form-group">
+                        <label for="editMovieDate">Date de parution</label>
+                        <input :class="[{ 'error-border': errorModificationJson && errorModificationJson.releaseDate }]"
+                            type="date" class="form-control" id="editMovieDate" v-model="editedMovieDate"
+                            :placeholder="data.date" />
 
+                        <div class="error-text" v-if="errorModificationJson && errorModificationJson.releaseDate">• {{
+                            errorModificationJson.releaseDate }}</div>
+                    </div>
 
-</div>
-
-<div v-else>
-    <div class="loading-top-movie">
-        <div class="loading-center">
-            <div class="loading-image loading"></div>
-            <div class="loading-text">
-                <div>
-                    <p class="loading-head-line loading"></p>
-                    <p class="loading-line-500 loading"></p>
-                </div>
-                <p class="loading-line-700-80 loading"></p>
-                <p class="loading-line-200 loading"></p>
+                    <div class="container-btn">
+                        <button type="submit" class="btn main-btn">Modifier</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 
-
+    <div v-else>
+        <div class="loading-top-movie">
+            <div class="loading-center">
+                <div class="loading-image loading"></div>
+                <div class="loading-text">
+                    <div>
+                        <p class="loading-head-line loading"></p>
+                        <p class="loading-line-500 loading"></p>
+                    </div>
+                    <p class="loading-line-700-80 loading"></p>
+                    <p class="loading-line-200 loading"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style>
-
 .loading-top-movie {
     height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
 }
+
 .loading-center {
     gap: 40px;
     padding: 40px;
     display: flex;
     align-items: flex-start;
 }
+
 .loading-image {
     height: 500px;
     aspect-ratio: 3/4;
 }
+
 .loading-text {
     padding: 10px 0;
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
-.loading-text > div {
+
+.loading-text>div {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 .loading-head-line {
-    height: 50px ;
+    height: 50px;
     width: 300px;
 }
+
 .loading-line-200 {
     height: 30px;
     width: 200px;
 }
+
 .loading-line-500 {
     height: 30px;
     width: 500px;
 }
+
 .loading-line-700-80 {
     height: 80px;
     width: 700px;
-}
-</style>
+}</style>
