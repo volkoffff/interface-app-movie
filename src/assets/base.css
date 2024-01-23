@@ -454,7 +454,7 @@ a {
   margin-bottom: 0.75rem;
   color: rgb(215, 218, 219);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   padding-inline: 20px;
 }
 .home-recommendation {
@@ -482,20 +482,18 @@ a {
   padding: 15px;
   pointer-events: all;
 
-}
-
-.second-recomendation {
-  background: url("https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/img-hapi.canalplus.pro:80/ServiceImage/ImageID/110777241") ;
-  background-size: cover;
-  background-position: center;
-
+  width: 300px;
   aspect-ratio: 16/9;
-  height: clamp(160px ,16vw, 200px);
-  width: 350px;
+  border: rgba(255, 255, 255, 0) 2px solid;
+  transition: 0.4s ease ;
+  background-size: 100% !important;
 }
-
+.recommendation:hover {
+  background-size: 107% !important;
+  border: white 2px solid;
+}
 .recommendation-info-container {
-  background: #66666633;
+  background: #66666666;
   border: 1px solid #ffffff44;
   backdrop-filter: blur(20px);
   border-radius: 6px;
@@ -510,15 +508,16 @@ a {
   width: 100%;
   padding: 5px 10px;
 }
-.recommendation-info-container:hover {
-  background: #66666655;
+.recommendation:hover .recommendation-info-container {
+  background: #78787897;
   cursor: pointer;
   border: 1px solid #ffffff66;
 }
 .recommendation-info {
   display: flex;
-  gap: 10px;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   
   overflow: hidden;
   text-overflow: ellipsis;
@@ -534,24 +533,29 @@ a {
 .recommendation-info > svg {
   font-size: 24px;
   flex-shrink: 0;
+  transform: translatey(25px);
+  opacity: 0;
+  transition: 0.34s ease;
+}
+.recommendation:hover .recommendation-info > svg {
+  transform: translateY(0px);
+  opacity: 1;
 }
 .recommendation-info-categorie {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgb(161, 166, 171);
+  font-size: 13px;
+  color: rgb(179, 179, 179);
 }
 .recommendation-info-title {
   overflow: hidden;
+  font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
-
   font-size: 16px;
+  line-height: normal;
 }
-
 .container-list {
   display: flex;
   gap: 7px;
-
   overflow-x: scroll;
   overflow-y: visible;
   padding-left: 20px;
