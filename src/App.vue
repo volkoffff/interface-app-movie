@@ -1,6 +1,7 @@
 <script setup>
 
 import { RouterLink, RouterView } from 'vue-router'
+import searchbarNavbar from './components/searchbarNavbar.vue';
 
 </script>
 
@@ -23,6 +24,7 @@ import { RouterLink, RouterView } from 'vue-router'
         </RouterLink>
       </div>
       <div class="nav-in">
+        <searchbarNavbar />
         <RouterLink to="/login">
           sign in
         </RouterLink>
