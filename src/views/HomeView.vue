@@ -115,23 +115,15 @@ onMounted(() => {
       <p>Cette plateforme pemet aux utilisateurs de noter leurs film préférer et de partager leurs gouts. Les modérateurs peuvent ajouter et modifier la liste de films</p>
     </div>
 
-    <div>
-
-      <div >
-        <p class="recommendation-title">Tendances</p>
-      </div>
-
-      <div class="home-recommendation">
-
-        <div v-for="(movie, index) in data" :key="movie.id" >
-          <div v-if="index < 4">
-            <moviesCard :movie="movie" />
-          </div>
+    <p class="recommendation-title">Populaires</p>
+    <div class="container-list">
+      <div v-for="(movie, index) in data" :key="movie.id" >
+        <div v-if="index < 12">
+          <moviesCard :id="movie.id" />
         </div>
-        
-
-      </div> <!-- home-container -->
+      </div>
     </div>
+
   </div> 
 
   <div>
@@ -140,7 +132,7 @@ onMounted(() => {
     <div class="container-list">
       <div v-for="(movie, index) in data" :key="movie.id" >
         <div v-if="index < 12">
-          <moviesCard :movie="movie" />
+          <moviesCard :id="movie.id" />
         </div>
       </div>
     </div>
@@ -153,7 +145,7 @@ onMounted(() => {
   <div class="container-list">
     <div v-for="(movie, index) in data" :key="movie.id" >
       <div v-if="index < 12">
-        <moviesCard :movie="movie" />
+        <moviesCard :id="movie.id" />
       </div>
     </div>
   </div>
