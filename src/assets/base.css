@@ -486,7 +486,7 @@ a {
   aspect-ratio: 16/9;
   border: rgba(255, 255, 255, 0) 2px solid;
   transition: 0.4s ease ;
-  background-size: 100% !important;
+  background-size: 102% !important;
 }
 .recommendation:hover {
   background-size: 107% !important;
