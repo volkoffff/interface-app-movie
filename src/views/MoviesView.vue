@@ -55,8 +55,8 @@ const previousPage = () => {
     <h3>Liste des movies</h3>
 
     <form >
-      <input type="text" v-model="searchQuery" placeholder="Rechercher un film" style="color: black;"/>
-      <button @click.prevent="fetchData">Rechercher</button>
+      <input @input="fetchData" type="text" v-model="searchQuery" placeholder="Rechercher un film" style="color: black;"/>
+      <button >Rechercher</button>
     </form>
 
     <div v-if="data">
