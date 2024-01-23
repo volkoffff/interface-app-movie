@@ -22,6 +22,9 @@ body {
 .text-blue {
   color: var(--main);
 }
+button:hover {
+  cursor: pointer;
+}
 .main-btn {
   background: var(--main);
   color: var(--white);
@@ -488,6 +491,10 @@ a {
   transition: 0.4s ease ;
   background-size: 102% !important;
 }
+.recommendation-loading {
+  width: 300px;
+  aspect-ratio: 16/9;
+}
 .recommendation:hover {
   background-size: 107% !important;
   border: white 2px solid;
@@ -568,9 +575,9 @@ a {
   background-color: var(--black);
   background: linear-gradient(
     100deg,
-    rgba(255, 255, 255, 0) 40%,
+    #0f1315 40%,
     rgba(255, 255, 255, .5) 50%,
-    rgba(255, 255, 255, 0) 60%
+    #0f1315 60%
   ) var(--black);
   background-size: 200% 100%;
   background-position-x: 180%;
