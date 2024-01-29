@@ -1,9 +1,9 @@
 <script setup>
-import moviesCard from '../components/moviesCard.vue';
-import { useRoute, RouterLink, RouterView } from 'vue-router';
-import { onMounted, ref, onBeforeUnmount, reactive } from 'vue';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
+import { onBeforeUnmount, onMounted, reactive, ref } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
+import moviesCard from '../components/moviesCard.vue';
 
 const route = useRoute();
 const routeId = route.params.id
@@ -332,6 +332,17 @@ function textToJson(inputText) {
 </template>
 
 <style>
+.top-movie {
+    height: 100vh;
+    position: relative;
+    background: linear-gradient( rgba(0, 0, 0, 0),var(--black-background) 70%), url(https://fr.web.img5.acsta.net/pictures/23/04/03/15/05/1583867.jpg/r_5000_x);
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .loading-top-movie {
     height: 100vh;
     width: 100%;

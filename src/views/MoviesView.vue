@@ -137,6 +137,8 @@ form {
 }
 .search {
   position: relative;
+  display: flex;
+  gap: 10px;
 }
 
 .search-icon {
@@ -169,6 +171,5 @@ form {
   border: 0;
   border-radius: 8px;
   padding: 10px 15px 10px 10px;
-  margin-left: 0.5rem;
 }
 </style>

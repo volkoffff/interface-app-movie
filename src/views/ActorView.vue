@@ -4,15 +4,24 @@ import { useRoute } from 'vue-router';
 import { onMounted, ref, reactive } from 'vue'
 import axios from 'axios'
 import moviesCard from '../components/moviesCard.vue';
+import SelectActor from '../components/SelectActor.vue';
 
 const route = useRoute();
 const routeId = route.params.id;
 const data = ref('');
+const dataNationalite = ref('');
 
 const editedActorFisrtName = ref('')
 const editedActorLastName = ref('')
 
 const errorModificationJson = ref(null)
+
+
+const selectedValue = ref(null);
+
+function handleSelectionChange(value) {
+  selectedValue.value = value;
+}
 
 onMounted(() => {
     load();
@@ -25,11 +34,11 @@ const load = async () => {
         },
     });
     data.value = response.data;
-
     
     //attribution of data for the modal 
     editedActorFisrtName.value = data.value.firstName;
     editedActorLastName.value = data.value.lastName;
+    selectedValue.value = data.value.nationalite.id;
 }
 
 async function updateMovieTitle() {
@@ -48,13 +57,14 @@ async function updateMovieTitle() {
                 'Content-Type': 'application/merge-patch+json',
             };
 
-            const updatedActor = reactive({ firstName: editedActorFisrtName.value, lastName: editedActorLastName.value }); // Nouveau titre du film
+            const updatedActor = reactive({ firstName: editedActorFisrtName.value, lastName: editedActorLastName.value, nationalite:`/api/nationalites/${selectedValue.value}` }); // Nouveau titre du film
             // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
             await axios.patch(`http://127.0.0.1:8000/api/actors/${data.value.id}`, updatedActor, { headers });
 
             // Réinitialiser après la mise à jour
             editedActorFisrtName.value = '';
             editedActorLastName.value = '';
+            selectedValue.value = '';
 
             // Réinitialiser la sélection du film après modification
             ModifyState.value = false;
@@ -107,13 +117,13 @@ function textToJson(inputText) {
 <template>
     <div v-if="data">
 
-        <div class="top-movie">
+        <div class="top-actor">
 
             <div class="top-movie-cache"></div>
 
             <div class="top-movie-bottom">
                 <div>
-                    <img src="https://fr.web.img5.acsta.net/pictures/23/04/03/15/05/1583867.jpg/r_5000_x">
+                    <img src="https://castprod.com/wp-content/uploads/2022/06/jean-dujardin.jpg">
                 </div>
                 <div class="top-movie-bottom-left">
                     <div class="gap10 flexcol">
@@ -199,6 +209,9 @@ function textToJson(inputText) {
                             errorModificationJson.lastName }}</div>
                     </div>
 
+                    <SelectActor :defaultValue="data.nationalite.id" @selection-changed="handleSelectionChange" v-model="selectedValue" />
+                    <p>Valeur sélectionnée : {{ selectedValue }}</p>
+
                     <div class="container-btn">
                         <button type="submit" class="btn main-btn">Modifier</button>
                     </div>
@@ -222,3 +235,17 @@ function textToJson(inputText) {
         </div>
     </div>
 </div></template>
+
+<style>
+.top-actor {
+    height: 100vh;
+    position: relative;
+    background: linear-gradient( rgba(0, 0, 0, 0),var(--black-background) 70%), url(https://castprod.com/wp-content/uploads/2022/06/jean-dujardin.jpg);
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+</style>

@@ -228,17 +228,7 @@ a {
   opacity: 0.7;
 }
 
-.top-movie {
-  height: 100vh;
-  position: relative;
-  background: linear-gradient( rgba(0, 0, 0, 0),var(--black-background) 70%), url(https://fr.web.img5.acsta.net/pictures/23/04/03/15/05/1583867.jpg/r_5000_x);
-  background-size: 120%;
-  background-repeat: no-repeat;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+
 .top-movie-cache {
   height: 100vh;
   position: absolute;
