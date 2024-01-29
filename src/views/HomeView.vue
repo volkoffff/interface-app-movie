@@ -157,8 +157,8 @@ onMounted(() => {
     <p class="recommendation-title">meilleurs acteurs</p>
     <div class="container-list">
       <div v-for="(actor, index) in dataActor" :key="actor.id">
-        <div v-if="index < 4">
-          <actorsCard :actor="actor" />
+        <div v-if="index < 12">
+          <actorsCard :actor="actor"/>
         </div>
       </div>
     </div>

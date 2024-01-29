@@ -4,6 +4,7 @@ import moment from 'moment';
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import moviesCard from '../components/moviesCard.vue';
+import SelectCategorie from '../components/SelectCategorie.vue';
 
 const route = useRoute();
 const routeId = route.params.id
@@ -16,6 +17,12 @@ const editedMovieDescription = ref('')
 const editedMovieDate = ref('')
 
 const errorModificationJson = ref(null)
+
+const selectedValue = ref(null);
+
+function handleSelectionChange(value) {
+  selectedValue.value = value;
+}
 
 onMounted(() => {
     load();
@@ -43,6 +50,7 @@ const load = async () => {
     editedMovieTitle.value = data.value.title;
     editedMovieDescription.value = data.value.description;
     editedMovieDate.value = data.value.releaseDate.split('T')[0];
+    selectedValue.value = data.value.category.name;
 
     // Fonction pour ajouter la classe "active" au banner-movie au scroll de 80vh
     function addActiveClassOnScroll() {
@@ -86,7 +94,7 @@ async function updateMovieTitle() {
                 'Content-Type': 'application/merge-patch+json',
             };
 
-            const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value, }); // Nouveau titre du film
+            const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value, category:`/api/categories/${selectedValue.value}` }); // Nouveau titre du film
 
             // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
             await axios.patch(`http://127.0.0.1:8000/api/movies/${data.value.id}`, updatedMovie, { headers });
@@ -95,6 +103,7 @@ async function updateMovieTitle() {
             editedMovieTitle.value = '';
             editedMovieDescription.value = '';
             editedMovieDate.value = '';
+            selectedValue.value = '';
 
 
             // Réinitialiser la sélection du film après modification
@@ -305,6 +314,9 @@ function textToJson(inputText) {
                         <div class="error-text" v-if="errorModificationJson && errorModificationJson.releaseDate">• {{
                             errorModificationJson.releaseDate }}</div>
                     </div>
+
+                    <SelectCategorie :defaultValue="data.category.id" @selection-changed="handleSelectionChange" v-model="selectedValue"/>
+                    <p>{{ selectedValue }}</p>
 
                     <div class="container-btn">
                         <button type="submit" class="btn main-btn">Modifier</button>
