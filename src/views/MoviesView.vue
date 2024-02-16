@@ -74,7 +74,7 @@ const previousPage = () => {
 <template>
   <div style="padding-top: 5rem">
     <div class="movies-list" v-if="data">
-      <h3>Liste de touts les films</h3>
+      <h3>Liste de tous les films</h3>
       <form class="search">
         <svg
           class="search-icon"

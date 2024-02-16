@@ -83,7 +83,7 @@ const previousPage = () => {
 <template>
   <div style="padding-top: 5rem">
     <div class="actors-list" v-if="data">
-      <h3>Liste de touts les acteurs</h3>
+      <h3>Liste de tous les acteurs</h3>
       <form class="search">
         <svg
           class="search-icon"
