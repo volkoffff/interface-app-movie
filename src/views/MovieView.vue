@@ -5,6 +5,7 @@ import { onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import moviesCard from '../components/moviesCard.vue';
 import SelectCategorie from '../components/SelectCategorie.vue';
+import MultiSelect from '../components/MultiSelect.vue';
 
 const route = useRoute();
 const routeId = route.params.id
@@ -16,12 +17,13 @@ const editedMovieTitle = ref('')
 const editedMovieDescription = ref('')
 const editedMovieDate = ref('')
 
+const actors = ref([]);
 const errorModificationJson = ref(null)
 
 const selectedValue = ref(null);
 
 function handleSelectionChange(value) {
-  selectedValue.value = value;
+    selectedValue.value = value;
 }
 
 onMounted(() => {
@@ -38,6 +40,12 @@ const load = async () => {
     });
     data.value = response.data;
 
+    // get actors id for multi select
+    data.value.actors.forEach(element => {
+        actors.value.push(element.id)
+    });
+    
+    // get category name
     const cathegory = ref(data.value.category.id);
     const response2 = await axios.get(`http://127.0.0.1:8000/api/categories/${cathegory.value}`, {
         headers: {
@@ -50,7 +58,7 @@ const load = async () => {
     editedMovieTitle.value = data.value.title;
     editedMovieDescription.value = data.value.description;
     editedMovieDate.value = data.value.releaseDate.split('T')[0];
-    selectedValue.value = data.value.category.name;
+    selectedValue.value = data.value.category.id;
 
     // Fonction pour ajouter la classe "active" au banner-movie au scroll de 80vh
     function addActiveClassOnScroll() {
@@ -75,9 +83,6 @@ const load = async () => {
     // Appel de la fonction pour l'activer
     addActiveClassOnScroll();
 }
-
-
-
 
 async function updateMovieTitle() {
     console.log(data.value);
@@ -316,7 +321,13 @@ function textToJson(inputText) {
                     </div>
 
                     <SelectCategorie :defaultValue="data.category.id" @selection-changed="handleSelectionChange" v-model="selectedValue"/>
-                    <p>{{ selectedValue }}</p>
+                    
+                    <div class="form-group">
+                        <label>Acteurs dans le film </label>
+                        <MultiSelect :actorsID="actors"/>
+                        {{ actors }}
+                    </div>
+                    
 
                     <div class="container-btn">
                         <button type="submit" class="btn main-btn">Modifier</button>
