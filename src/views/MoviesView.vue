@@ -184,6 +184,7 @@ const previousPage = () => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
   justify-content: center;
+  padding-inline: 5vw;
   gap: 14px;
   row-gap: 14px;
   margin-top: 2rem;
