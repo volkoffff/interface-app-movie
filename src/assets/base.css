@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: var(--white);
 }
 :root {
-  --black: #20211A;
+  --black: #20211a;
   --black-background: #0b0f12;
-  --white: #F5F5F5;
+  --white: #f5f5f5;
   --cream2: #95999c;
-  --cream: #D8D1CC;
+  --cream: #d8d1cc;
   --main: #3786e5;
 }
 body {
@@ -31,6 +31,9 @@ button:hover {
   padding: 6px 16px;
   border-radius: 6px;
   font-weight: 500;
+  display: flex;
+  gap: 7px;
+  align-items: center;
 }
 .main-btn:hover {
   background: #2d79d6;
@@ -135,7 +138,7 @@ button:hover {
   gap: 5px;
 }
 .form-modal > .form-group > label {
-  color: rgb(207, 202, 202) ;
+  color: rgb(207, 202, 202);
 }
 .form-modal > .form-group > input {
   background: #414448;
@@ -153,7 +156,7 @@ button:hover {
   padding: 15px;
   padding-top: 0;
 }
-.form-modal > .container-btn> button {
+.form-modal > .container-btn > button {
   border: 0;
   width: fit-content;
   height: 36px;
@@ -217,17 +220,18 @@ nav {
   gap: 20px;
 }
 .active-link {
-  color: var(--main); /* Appliquez ici le style que vous souhaitez pour les liens actifs */
+  color: var(
+    --main
+  ); /* Appliquez ici le style que vous souhaitez pour les liens actifs */
   /* font-weight: 500; */
 }
 a {
   text-decoration: none;
-  transition: 0.1s ease-out ;
+  transition: 0.1s ease-out;
 }
 .opacity-hover:hover {
   opacity: 0.7;
 }
-
 
 .top-movie-cache {
   height: 100vh;
@@ -296,7 +300,6 @@ a {
   text-decoration: underline;
 }
 
-
 .banner-movie {
   transform: translateY(-150px);
   transition: 0.23s ease-out;
@@ -342,11 +345,11 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-} 
+}
 .card-subtitle {
   color: gray;
   font-size: 12px;
-  
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -366,16 +369,15 @@ a {
   font-size: 9px;
 }
 
-
-
-
-
-
 .home-container {
   height: 100vh;
   width: 100%;
   padding-top: 5rem;
-  background: radial-gradient(ellipse at left bottom, #0b0f12 50% , #0b0f1200 100%);
+  background: radial-gradient(
+    ellipse at left bottom,
+    #0b0f12 50%,
+    #0b0f1200 100%
+  );
   pointer-events: none;
   position: relative;
   z-index: 1;
@@ -423,7 +425,6 @@ a {
   /* background: red; */
   display: flex;
   gap: 6px;
-
 }
 .slider-movies > img {
   height: 100%;
@@ -437,9 +438,6 @@ a {
   box-shadow: 0px 10px 30px 0px rgba(14, 14, 14, 0.775);
   filter: brightness(1.3);
 }
-
-
-
 
 .recommendation-title {
   margin-top: 20px;
@@ -457,8 +455,8 @@ a {
   padding-left: 20px;
   padding-bottom: 20px;
 
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .home-recommendation::-webkit-scrollbar {
   display: none;
@@ -477,7 +475,7 @@ a {
   width: 300px;
   aspect-ratio: 16/9;
   border: rgba(255, 255, 255, 0) 2px solid;
-  transition: 0.4s ease ;
+  transition: 0.4s ease;
   background-size: 102% !important;
 }
 .recommendation-loading {
@@ -514,12 +512,12 @@ a {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.text-overflow{
+.text-overflow {
   flex-shrink: 1;
 
   overflow: hidden;
@@ -563,11 +561,12 @@ a {
 .loading {
   background-color: var(--black);
   background: linear-gradient(
-    100deg,
-    #0f1315 40%,
-    rgba(255, 255, 255, .5) 50%,
-    #0f1315 60%
-  ) var(--black);
+      100deg,
+      #0f1315 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      #0f1315 60%
+    )
+    var(--black);
   background-size: 200% 100%;
   background-position-x: 180%;
   animation: 1s loading ease-in-out infinite;
