@@ -3,15 +3,15 @@ import axios from 'axios';
 import moment from 'moment';
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
-import moviesCard from '../components/moviesCard.vue';
-import SelectCategorie from '../components/SelectCategorie.vue';
 import MultiSelect from '../components/MultiSelect.vue';
+import SelectCategorie from '../components/SelectCategorie.vue';
+import moviesCard from '../components/moviesCard.vue';
 
 const route = useRoute();
 const routeId = route.params.id
 
 const data = ref('');
-const data2 = ref('');
+const allMoviesData = ref('');
 
 const editedMovieTitle = ref('')
 const editedMovieDescription = ref('')
@@ -46,13 +46,12 @@ const load = async () => {
     });
     
     // get category name
-    const cathegory = ref(data.value.category.id);
-    const response2 = await axios.get(`http://127.0.0.1:8000/api/categories/${cathegory.value}`, {
+    const response2 = await axios.get(`http://127.0.0.1:8000/api/movies`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
     });
-    data2.value = response2.data;
+    allMoviesData.value = response2.data['hydra:member'];
 
     //attribution of data for the modal 
     editedMovieTitle.value = data.value.title;
@@ -266,13 +265,35 @@ function textToJson(inputText) {
 
         </div> <!-- .top-movie -->
 
-
-        <div style="height: 100vh;">
-            <div v-if="data2">
-                <div v-for="(movie, index ) in data2.movies" :key="movie.id">
-                    <div v-if="index < 8">
-                        <moviesCard :id="movie.id" />
-                    </div>
+        <div>
+            <p class="recommendation-title">Dans la même catégorie</p>
+            <div>
+                <div v-if="allMoviesData" class="container-list">
+                    <moviesCard v-for="(movie, index) in allMoviesData" :key="movie.id" :id="movie.id" :movie="movie" v-show="data.category.name == movie.category.name" />
+                </div>
+                <div v-else class="container-list">
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p class="recommendation-title">Populaires</p>
+            <div>
+                <div v-if="allMoviesData" class="container-list">
+                        <moviesCard v-for="(movie, index) in allMoviesData" :key="movie.id" :id="movie.id" :movie="movie" />
+                </div>
+                <div v-else class="container-list">
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
+                    <div class="recommendation-loading loading"></div>
                 </div>
             </div>
         </div>
