@@ -184,11 +184,12 @@ onMounted(() => {
     <p class="recommendation-title">Populaires</p>
     <div>
       <div v-if="data" class="container-list">
-        <div v-for="(movie, index) in data" :key="movie.id">
-          <div v-if="index < 12">
-            <moviesCard :id="movie.id" :movie="movie" />
-          </div>
-        </div>
+        <moviesCard
+          v-for="(movie, index) in data.slice(0, 12)"
+          :key="movie.id"
+          :id="movie.id"
+          :movie="movie"
+        />
       </div>
       <div v-else class="container-list">
         <div class="recommendation-loading loading"></div>
@@ -205,11 +206,12 @@ onMounted(() => {
     <p class="recommendation-title">Derniers ajouts</p>
     <div>
       <div v-if="data" class="container-list">
-        <div v-for="(movie, index) in data" :key="movie.id">
-          <div v-if="index < 12">
-            <moviesCard :id="movie.id" :movie="movie" />
-          </div>
-        </div>
+        <moviesCard
+          v-for="(movie, index) in data.slice(12, 24)"
+          :key="movie.id"
+          :id="movie.id"
+          :movie="movie"
+        />
       </div>
       <div v-else class="container-list">
         <div class="recommendation-loading loading"></div>
@@ -223,14 +225,16 @@ onMounted(() => {
   </div>
 
   <div>
-    <p class="recommendation-title">Action</p>
+    <p class="recommendation-title">Categorie 5</p>
     <div>
       <div v-if="data" class="container-list">
-        <div v-for="(movie, index) in data" :key="movie.id">
-          <div v-if="index < 12">
-            <moviesCard :id="movie.id" :movie="movie" />
-          </div>
-        </div>
+        <moviesCard
+          v-for="(movie, index) in data"
+          :key="movie.id"
+          :id="movie.id"
+          :movie="movie"
+          v-show="movie.category.name == 'catergory5'"
+        />
       </div>
       <div v-else class="container-list">
         <div class="recommendation-loading loading"></div>
@@ -250,6 +254,29 @@ onMounted(() => {
         <div v-if="index < 12">
           <actorsCard :actor="actor" />
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="recommendation-title">Categorie 7</p>
+    <div>
+      <div v-if="data" class="container-list">
+        <moviesCard
+          v-for="(movie, index) in data"
+          :key="movie.id"
+          :id="movie.id"
+          :movie="movie"
+          v-show="movie.category.name == 'catergory7'"
+        />
+      </div>
+      <div v-else class="container-list">
+        <div class="recommendation-loading loading"></div>
+        <div class="recommendation-loading loading"></div>
+        <div class="recommendation-loading loading"></div>
+        <div class="recommendation-loading loading"></div>
+        <div class="recommendation-loading loading"></div>
+        <div class="recommendation-loading loading"></div>
       </div>
     </div>
   </div>
