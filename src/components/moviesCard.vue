@@ -81,7 +81,6 @@ async function fetchMovie(id) {
         </div>
         <div v-else>
             <div class="recommendation-loading loading">
-
             </div>
         </div>
     </div>

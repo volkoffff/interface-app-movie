@@ -480,6 +480,7 @@ a {
 }
 .recommendation-loading {
   width: 300px;
+  height: 168.75px;
   aspect-ratio: 16/9;
 }
 .recommendation:hover {
