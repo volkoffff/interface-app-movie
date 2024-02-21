@@ -249,12 +249,23 @@ onMounted(() => {
 
   <div>
     <p class="recommendation-title">meilleurs acteurs</p>
-    <div class="container-list">
-      <div v-for="(actor, index) in dataActor" :key="actor.id">
-        <div v-if="index < 12">
-          <actorsCard :actor="actor" />
-        </div>
-      </div>
+    <div v-if="dataActor" class="container-list">
+      <actorsCard
+        v-for="(actor, index) in dataActor.slice(0, 12)"
+        :key="actor.id"
+        :actor="actor"
+      />
+    </div>
+    <div v-else class="container-list">
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
+      <div class="actor-card-loading loading"></div>
     </div>
   </div>
 
