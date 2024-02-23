@@ -127,23 +127,20 @@ async function updateMovieTitle() {
     }
 }
 
-//scroll
+
 // Fonction pour mettre à jour la taille du background en fonction du défilement
-let backgroundSize = 120; // Taille initiale du background-size en pourcentage
+let backgroundSize = 120;
 const updateBackgroundSize = () => {
     const topMovie = document.querySelector('.top-movie');
     if (topMovie) {
         const scrollPosition = window.scrollY;
-        // Modifiez la taille du background en fonction de la position de défilement
-        backgroundSize = 120 - scrollPosition * 0.08; // Vous pouvez ajuster le coefficient selon vos besoins
+        backgroundSize = 120 - scrollPosition * 0.08;
         topMovie.style.backgroundSize = `${backgroundSize}%`;
     }
 };
 
-// Écoutez l'événement de défilement de la page et mettez à jour la taille du background
+// déclencher et supr l'écoute de l'évenement
 window.addEventListener('scroll', updateBackgroundSize);
-
-// Assurez-vous de retirer l'écouteur d'événement lorsque le composant est détruit pour éviter des fuites de mémoire
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', updateBackgroundSize);
 });
