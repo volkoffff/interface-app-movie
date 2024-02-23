@@ -1,31 +1,34 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import searchbarNavbar from "./components/searchbarNavbar.vue";
+import Footer from "./components/Footer.vue";
 
 const token = localStorage.getItem("authToken"); // Récupérer le token d'authentification
 
 export default {
-  data() {
-    return {
-      token: localStorage.getItem("authToken"), // Récupérer le token d'authentification
-    };
-  },
-  watch: {
-    $route: function (to, from) {
-      this.checkToken();
+    data() {
+        return {
+            token: localStorage.getItem("authToken"), // Récupérer le token d'authentification
+        };
     },
-  },
-  methods: {
-    checkToken() {
-      if (!this.token) {
-        // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
-        if (this.$route.path !== "/login") this.$router.push("/login");
-      }
+    watch: {
+        $route: function (to, from) {
+            this.checkToken();
+        },
     },
-  },
-  created() {
-    this.checkToken();
-  },
+    methods: {
+        checkToken() {
+            if (!this.token) {
+                // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+                if (this.$route.path !== "/login")
+                    this.$router.push("/login");
+            }
+        },
+    },
+    created() {
+        this.checkToken();
+    },
+    components: { Footer }
 };
 </script>
 
@@ -73,6 +76,7 @@ export default {
   <div class="page">
     <RouterView :key="$route.path" />
   </div>
+  <Footer ></Footer>
 </template>
 
 <style>
