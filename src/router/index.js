@@ -8,6 +8,7 @@ import CategoriesView from '../views/CategoriesView.vue'
 import CategorieView from '../views/CategorieView.vue'
 import MovieEditView from '../views/MovieEditView.vue'
 import LoginView from '../views/LoginView.vue'
+import MeView from '../views/MeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/me',
+      name: 'me',
+      component: MeView
     },
   ]
 })

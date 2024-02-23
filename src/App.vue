@@ -1,34 +1,33 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import searchbarNavbar from "./components/searchbarNavbar.vue";
 import Footer from "./components/Footer.vue";
+import SearchbarNavbar from "./components/searchbarNavbar.vue";
 
 const token = localStorage.getItem("authToken"); // Récupérer le token d'authentification
 
 export default {
-    data() {
-        return {
-            token: localStorage.getItem("authToken"), // Récupérer le token d'authentification
-        };
+  data() {
+    return {
+      token: localStorage.getItem("authToken"), // Récupérer le token d'authentification
+    };
+  },
+  watch: {
+    $route: function (to, from) {
+      this.checkToken();
     },
-    watch: {
-        $route: function (to, from) {
-            this.checkToken();
-        },
+  },
+  methods: {
+    checkToken() {
+      if (!this.token) {
+        // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+        if (this.$route.path !== "/login") this.$router.push("/login");
+      }
     },
-    methods: {
-        checkToken() {
-            if (!this.token) {
-                // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
-                if (this.$route.path !== "/login")
-                    this.$router.push("/login");
-            }
-        },
-    },
-    created() {
-        this.checkToken();
-    },
-    components: { Footer }
+  },
+  created() {
+    this.checkToken();
+  },
+  components: { Footer, SearchbarNavbar },
 };
 </script>
 
@@ -55,20 +54,18 @@ export default {
       </div>
 
       <div v-if="!token" class="nav-in">
-        <searchbarNavbar />
         <RouterLink to="/login"> sign in </RouterLink>
         <RouterLink class="white-btn" to=""> sign up </RouterLink>
       </div>
       <div v-else class="nav-in gap-2">
-        <RouterLink to="/me">
+        <SearchbarNavbar />
+        <RouterLink to="/me" class="account">
           <ion-icon
             class="person-circle-outline"
             name="person-circle-outline"
             size="large"
           ></ion-icon>
-        </RouterLink>
-        <RouterLink to="/logout">
-          <ion-icon class="exit-outline" name="exit-outline"></ion-icon>
+          Account
         </RouterLink>
       </div>
     </nav>
@@ -76,7 +73,7 @@ export default {
   <div class="page">
     <RouterView :key="$route.path" />
   </div>
-  <Footer ></Footer>
+  <Footer></Footer>
 </template>
 
 <style>
@@ -87,19 +84,25 @@ export default {
   line-height: 0;
 }
 .person-circle-outline {
-  color: #4d6071;
-}
-.person-circle-outline:hover {
-  color: #607588;
-}
-.exit-outline {
-  color: #565656;
-}
-.exit-outline:hover {
-  color: #7e7e7e;
+  color: #8497a8;
 }
 .nav-in > a {
   height: fit-content;
   display: flex;
+}
+.account {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #8497a8;
+  height: 36px !important;
+  background: rgba(83, 85, 85, 0.707);
+  padding-left: 4px;
+  padding-right: 8px;
+  border-radius: 8px;
+}
+.account:hover {
+  background: rgba(103, 106, 106, 0.707);
 }
 </style>
