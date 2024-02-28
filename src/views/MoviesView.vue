@@ -76,44 +76,71 @@ const previousPage = () => {
     <div class="movies-list" v-if="data">
       <h3>Liste de tous les films</h3>
       <form class="search">
-        <svg
-          class="search-icon"
-          stroke="currentColor"
-          fill="none"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          height="1em"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-
-        <input
-          @input="fetchData"
-          class="searchbar"
-          type="text"
-          v-model="searchQuery"
-          placeholder="Rechercher un film"
-        />
-        <select
-          id="category"
-          class="select"
-          v-model="selectedCategory"
-          @change="filterByCategory"
-        >
-          <option value="">Toutes les catégories</option>
-          <option
-            v-for="category in dataCategorie"
-            :key="category.id"
-            :value="category.id"
+        <div class="gap-2 flex">
+          <svg
+            class="search-icon"
+            stroke="currentColor"
+            fill="none"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            {{ category.name }}
-          </option>
-        </select>
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+
+          <input
+            @input="fetchData"
+            class="searchbar"
+            type="text"
+            v-model="searchQuery"
+            placeholder="Rechercher un film"
+          />
+          <select
+            id="category"
+            class="select"
+            v-model="selectedCategory"
+            @change="filterByCategory"
+          >
+            <option value="">Toutes les catégories</option>
+            <option
+              v-for="category in dataCategorie"
+              :key="category.id"
+              :value="category.id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <button class="main-btn">
+          Ajouter un film
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            t="1551322312294"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            pId="10297"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs></defs>
+            <path
+              d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"
+              pId="10298"
+            ></path>
+            <path
+              d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"
+              pId="10299"
+            ></path>
+          </svg>
+        </button>
       </form>
       <div v-for="(movie, index) in displayedData" :key="movie.id">
         <moviesCard :movie="movie" />
@@ -190,9 +217,13 @@ const previousPage = () => {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-
+.flex {
+  display: flex;
+}
 form {
   grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
 }
 .page-selector-section {
   grid-column: 1/-1;

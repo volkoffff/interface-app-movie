@@ -6,18 +6,18 @@
       placeholder="choisir des acteurs"
       class="multiselect-green"
       :close-on-select="false"
-      :searchable="true"
       :allow-absent="true"
       :create-option="true"
       :options="transformedOptions"
     />
   </div>
+  <!-- {{ value }} -->
 </template>
 
 <script>
 import Multiselect from "@vueform/multiselect";
 import axios from "axios";
-import { computed, onMounted, ref, watch  } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 export default {
   props: {
@@ -30,7 +30,6 @@ export default {
     Multiselect,
   },
   setup(props, { emit }) {
-    // Ajoutez le paramètre props ici
     const value = ref(props.actorsID);
     const apiData = ref([]);
 
@@ -45,6 +44,14 @@ export default {
       await loadDataFromApi();
       console.log("Initial value:", value.value);
       console.log("Transformed options:", transformedOptions.value);
+
+      envoyerInfoAuParent(value);
+    });
+
+    watch(value, (newValue) => {
+      // Cette fonction sera déclenchée à chaque fois que la valeur de "value" change
+      console.log("Nouvelle valeur de data:", newValue);
+      envoyerInfoAuParent(newValue);
     });
 
     async function loadDataFromApi() {
@@ -59,6 +66,12 @@ export default {
       } catch (error) {
         console.error("Error fetching data from API", error);
       }
+    }
+
+    function envoyerInfoAuParent(newValue) {
+      // Émettre un événement personnalisé vers le composant parent
+      console.log(newValue);
+      emit("infoAuParent", newValue);
     }
 
     return {
@@ -165,5 +178,13 @@ export default {
   border: 0;
   border-radius: 8px;
   /* padding: 10px 15px 10px 10px; */
+}
+.multiselect-tags-search {
+  background: transparent;
+  display: none;
+}
+input {
+  display: none;
+  flex-grow: 0 !important;
 }
 </style>

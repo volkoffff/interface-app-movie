@@ -26,6 +26,14 @@ function handleSelectionChange(value) {
     selectedValue.value = value;
 }
 
+const informationsDuEnfant = ref("");
+const formattedArray = ref([])
+
+function recevoirInfoDuEnfant(informations) {
+  // Fonction qui reçoit les informations du composant enfant
+  informationsDuEnfant.value = informations;
+}
+
 onMounted(() => {
     load();
 });
@@ -84,8 +92,16 @@ const load = async () => {
 }
 
 async function updateMovieTitle() {
-    console.log(data.value);
+
+
     if (ModifyState) {
+    
+
+    if (informationsDuEnfant.value) {
+        formattedArray.value = informationsDuEnfant.value.map(id => `/api/actors/${id}`);
+    }
+
+
         try {
             const token = localStorage.getItem('authToken'); // Récupérer le token d'authentification
             if (!token) {
@@ -98,7 +114,8 @@ async function updateMovieTitle() {
                 'Content-Type': 'application/merge-patch+json',
             };
 
-            const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value, category:`/api/categories/${selectedValue.value}` }); // Nouveau titre du film
+
+            const updatedMovie = reactive({ title: editedMovieTitle.value, description: editedMovieDescription.value, releaseDate: editedMovieDate.value, category:`/api/categories/${selectedValue.value}`, actors: formattedArray }); // Nouveau titre du film
 
             // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
             await axios.patch(`http://127.0.0.1:8000/api/movies/${data.value.id}`, updatedMovie, { headers });
@@ -342,8 +359,8 @@ function textToJson(inputText) {
                     
                     <div class="form-group">
                         <label>Acteurs dans le film </label>
-                        <MultiSelect :actorsID="actors"/>
-                        {{ actors }}
+                        <MultiSelect :actorsID="actors" @infoAuParent="recevoirInfoDuEnfant"/>
+                        <!-- <p>Informations du parent : {{ informationsDuEnfant }}</p> -->
                     </div>
                     
 
