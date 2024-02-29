@@ -2,6 +2,7 @@
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import actorsCard from "../components/actorsCard.vue";
+import CreateActor from "../components/CreateActor.vue";
 
 const dataNationality = ref([]);
 const selectedNationality = ref("");
@@ -99,6 +100,7 @@ const filterByCategory = () => {
     <div class="actors-list" v-if="actors">
       <h3>Liste de tous les acteurs</h3>
       <form class="search">
+        <div class="gap-2 flex">
         <svg
           class="search-icon"
           stroke="currentColor"
@@ -138,6 +140,8 @@ const filterByCategory = () => {
             {{ nationality.nationalite }}
           </option>
         </select>
+        </div>
+        <CreateActor />
       </form>
       <div v-for="(actor, index) in actors" :key="actor.id">
         <actorsCard :actor="actor" />
@@ -204,6 +208,9 @@ const filterByCategory = () => {
 </template>
 
 <style>
+.flex {
+  display: flex;
+}
 .actors-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, 150px);

@@ -2,19 +2,31 @@
 <template>
   <div class="form-group">
     <label>Nationalité</label>
-    <select id="selectActor" class="select" v-model="selectedOption" @change="emitSelection">
-      <option v-for="option in options" id="selectActor" :key="option.id" :value="option.id">
+    <select
+      id="selectActor"
+      class="select"
+      v-model="selectedOption"
+      @change="emitSelection"
+      placeholder="nationalite"
+    >
+      <option
+        v-for="option in options"
+        id="selectActor"
+        :key="option.id"
+        :value="option.id"
+      >
         {{ option.nationalite }}
       </option>
     </select>
+    <slot></slot>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-props: {
+  props: {
     defaultValue: {
       type: [Number],
       default: null,
@@ -44,7 +56,6 @@ props: {
         );
         this.options = response.data["hydra:member"];
         console.log(this.options);
-
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des données de l'API",
@@ -54,7 +65,7 @@ props: {
     },
     emitSelection() {
       // Émettre un événement vers le composant parent avec la valeur sélectionnée
-      this.$emit('selection-changed', this.selectedOption);
+      this.$emit("selection-changed", this.selectedOption);
     },
   },
 };
