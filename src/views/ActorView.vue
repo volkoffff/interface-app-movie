@@ -332,7 +332,6 @@ function textToJson(inputText) {
             @selection-changed="handleSelectionChange"
             v-model="selectedValue"
           />
-          <p>Valeur sélectionnée : {{ selectedValue }}</p>
 
           <div class="container-btn">
             <button type="submit" class="btn main-btn">Modifier</button>
