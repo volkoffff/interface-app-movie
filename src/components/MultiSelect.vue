@@ -11,6 +11,7 @@
       :options="transformedOptions"
     />
   </div>
+  <slot></slot>
   <!-- {{ value }} -->
 </template>
 
