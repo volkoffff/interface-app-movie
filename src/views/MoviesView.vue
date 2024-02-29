@@ -1,53 +1,77 @@
 <script setup>
 import axios from "axios";
-import { computed, onMounted, ref } from "vue";
-import moviesCard from "../components/moviesCard.vue";
+import { onMounted, ref } from "vue";
 import CreateMovie from "../components/CreateMovie.vue";
+import moviesCard from "../components/moviesCard.vue";
 
-const data = ref([]);
-const dataSaved = ref([]);
 const dataCategorie = ref([]);
-const itemsPerPage = 15; // Nombre d'éléments par page
-const currentPage = ref(1);
-const searchQuery = ref("");
-const selectedCategory = ref(""); // Catégorie sélectionnée pour le filtre
+const selectedCategory = ref("");
 
-const filterByCategory = () => {
-  if (selectedCategory.value) {
-    // Filtrer les films par catégorie
-    data.value = dataSaved.value.filter(
-      (movie) => movie.category.id === selectedCategory.value
-    );
+let movies = ref([]);
+let moviesSaved = ref([]);
+let currentPage = ref(1);
+let totalPages = ref(1);
+let searchbar = ref("");
+
+const fetchMovies = async (page) => {
+  if (searchbar.value) {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/movies?title=${searchbar.value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      movies.value = response.data["hydra:member"];
+      totalPages.value = Math.ceil(response.data["hydra:totalItems"] / 30);
+    } catch (error) {
+      console.error(error);
+      localStorage.removeItem("token");
+    }
   } else {
-    // Afficher tous les films si aucune catégorie n'est sélectionnée
-    data.value = dataSaved.value;
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/movies?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      movies.value = response.data["hydra:member"];
+      moviesSaved.value = response.data["hydra:member"];
+      totalPages.value = Math.ceil(response.data["hydra:totalItems"] / 30);
+    } catch (error) {
+      console.error(error);
+      localStorage.removeItem("token");
+    }
   }
 };
 
-onMounted(async () => {
-  await fetchData();
-  await fetchDataCategorie();
+const searchMovies = () => {
+  currentPage.value = 1; // Reset to the first page when searching
+  fetchMovies(currentPage.value);
+};
+
+onMounted(() => {
+  fetchMovies(currentPage.value);
+  fetchDataCategorie();
 });
 
-const displayedData = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return data.value.slice(startIndex, endIndex);
-});
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+    fetchMovies(currentPage.value);
+  }
+};
 
-const totalPages = computed(() => Math.ceil(data.value.length / itemsPerPage));
-
-const fetchData = async () => {
-  const response = await axios.get("http://127.0.0.1:8000/api/movies", {
-    params: {
-      title: searchQuery.value, // Utilisez la valeur de recherche dans la requête
-    },
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
-  data.value = response.data["hydra:member"];
-  dataSaved.value = response.data["hydra:member"];
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+    fetchMovies(currentPage.value);
+  }
 };
 
 const fetchDataCategorie = async () => {
@@ -58,23 +82,22 @@ const fetchDataCategorie = async () => {
   });
   dataCategorie.value = response2.data["hydra:member"];
 };
-
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  }
-};
-
-const previousPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
+const filterByCategory = () => {
+  if (selectedCategory.value) {
+    // Filtrer les films par catégorie
+    movies.value = moviesSaved.value.filter(
+      (movie) => movie.category.id === selectedCategory.value
+    );
+  } else {
+    // Afficher tous les films si aucune catégorie n'est sélectionnée
+    movies.value = moviesSaved.value;
   }
 };
 </script>
 
 <template>
   <div style="padding-top: 5rem">
-    <div class="movies-list" v-if="data">
+    <div class="movies-list" v-if="movies">
       <h3>Liste de tous les films</h3>
       <form class="search">
         <div class="gap-2 flex">
@@ -95,10 +118,11 @@ const previousPage = () => {
           </svg>
 
           <input
-            @input="fetchData"
             class="searchbar"
             type="text"
-            v-model="searchQuery"
+            id="search"
+            v-model="searchbar"
+            @input="searchMovies"
             placeholder="Rechercher un film"
           />
           <select
@@ -119,13 +143,13 @@ const previousPage = () => {
         </div>
         <CreateMovie />
       </form>
-      <div v-for="(movie, index) in displayedData" :key="movie.id">
+      <div v-for="(movie, index) in movies" :key="movie.id">
         <moviesCard :movie="movie" />
       </div>
       <div class="page-selector-section">
         <button
           class="main-btn"
-          @click="previousPage"
+          @click="prevPage"
           :disabled="currentPage === 1"
         >
           <svg
