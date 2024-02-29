@@ -37,15 +37,12 @@ function handleSelectionChange(value) {
 }
 
 const addMovie = async () => {
-  if (categorie.value != null) {
-    categorie.value = `/api/categories/${categorie.value}`;
-  }
   const editedMovie = {
     title: title.value,
     description: description.value,
     duration: duration.value,
     releaseDate: date.value,
-    category: categorie.value,
+    category: `/api/categories/${categorie.value}`,
     actors: actors.value,
   };
   console.log(editedMovie);
