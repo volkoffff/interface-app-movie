@@ -1,61 +1,76 @@
 <script setup>
-import actorsCard from "../components/actorsCard.vue";
-import { onMounted, ref, computed } from "vue";
 import axios from "axios";
+import { onMounted, ref } from "vue";
+import actorsCard from "../components/actorsCard.vue";
 
-onMounted(async () => {
-  const response = await axios.get("http://127.0.0.1:8000/api/actors", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
-  data.value = response.data["hydra:member"];
-});
+const dataNationality = ref([]);
+const selectedNationality = ref("");
 
-const data = ref([]);
-const dataSaved = ref([]);
-const dataCategorie = ref([]);
-const itemsPerPage = 15; // Nombre d'éléments par page
-const currentPage = ref(1);
-const searchQuery = ref("");
-const selectedNationality = ref(""); // Catégorie sélectionnée pour le filtre
+let actors = ref([]);
+let actorsSaved = ref([]);
+let currentPage = ref(1);
+let totalPages = ref(1);
+let searchbar = ref("");
 
-const filterByNationality = () => {
-  if (selectedNationality.value) {
-    // Filtrer les films par catégorie
-    data.value = dataSaved.value.filter(
-      (actor) => actor.nationalite.id === selectedNationality.value
-    );
+const fetchMovies = async (page) => {
+  if (searchbar.value) {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/actors?firstName=${searchbar.value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      actors.value = response.data["hydra:member"];
+      totalPages.value = Math.ceil(response.data["hydra:totalItems"] / 30);
+    } catch (error) {
+      console.error(error);
+      localStorage.removeItem("token");
+    }
   } else {
-    // Afficher tous les films si aucune catégorie n'est sélectionnée
-    data.value = dataSaved.value;
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/actors?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      actors.value = response.data["hydra:member"];
+      actorsSaved.value = response.data["hydra:member"];
+      totalPages.value = Math.ceil(response.data["hydra:totalItems"] / 30);
+    } catch (error) {
+      console.error(error);
+      localStorage.removeItem("token");
+    }
   }
 };
 
-onMounted(async () => {
-  await fetchData();
-  await fetchDataCategorie();
+const searchMovies = () => {
+  currentPage.value = 1; // Reset to the first page when searching
+  fetchMovies(currentPage.value);
+};
+
+onMounted(() => {
+  fetchMovies(currentPage.value);
+  fetchDataCategorie();
 });
 
-const displayedData = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return data.value.slice(startIndex, endIndex);
-});
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+    fetchMovies(currentPage.value);
+  }
+};
 
-const totalPages = computed(() => Math.ceil(data.value.length / itemsPerPage));
-
-const fetchData = async () => {
-  const response = await axios.get("http://127.0.0.1:8000/api/actors", {
-    params: {
-      firstName: searchQuery.value, // Utilisez la valeur de recherche dans la requête
-    },
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
-  data.value = response.data["hydra:member"];
-  dataSaved.value = response.data["hydra:member"];
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+    fetchMovies(currentPage.value);
+  }
 };
 
 const fetchDataCategorie = async () => {
@@ -64,25 +79,24 @@ const fetchDataCategorie = async () => {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
   });
-  dataCategorie.value = response2.data["hydra:member"];
+  dataNationality.value = response2.data["hydra:member"];
 };
-
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  }
-};
-
-const previousPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
+const filterByCategory = () => {
+  if (selectedNationality.value) {
+    // Filtrer les films par catégorie
+    actors.value = actorsSaved.value.filter(
+      (actor) => actor.nationalite.id === selectedNationality.value
+    );
+  } else {
+    // Afficher tous les films si aucune catégorie n'est sélectionnée
+    actors.value = actorsSaved.value;
   }
 };
 </script>
 
 <template>
   <div style="padding-top: 5rem">
-    <div class="actors-list" v-if="data">
+    <div class="actors-list" v-if="actors">
       <h3>Liste de tous les acteurs</h3>
       <form class="search">
         <svg
@@ -102,21 +116,22 @@ const previousPage = () => {
         </svg>
 
         <input
-          @input="fetchData"
           class="searchbar"
           type="text"
-          v-model="searchQuery"
-          placeholder="Rechercher par prénom"
+          id="search"
+          v-model="searchbar"
+          @input="searchMovies"
+          placeholder="Rechercher par le prénom"
         />
         <select
           id="category"
           class="select"
           v-model="selectedNationality"
-          @change="filterByNationality"
+          @change="filterByCategory"
         >
           <option value="">Toutes les catégories</option>
           <option
-            v-for="nationality in dataCategorie"
+            v-for="nationality in dataNationality"
             :key="nationality.id"
             :value="nationality.id"
           >
@@ -124,13 +139,13 @@ const previousPage = () => {
           </option>
         </select>
       </form>
-      <div v-for="(actor, index) in displayedData" :key="actor.id">
+      <div v-for="(actor, index) in actors" :key="actor.id">
         <actorsCard :actor="actor" />
       </div>
       <div class="page-selector-section">
         <button
           class="main-btn"
-          @click="previousPage"
+          @click="prevPage"
           :disabled="currentPage === 1"
         >
           <svg
