@@ -101,45 +101,45 @@ const filterByCategory = () => {
       <h3>Liste de tous les acteurs</h3>
       <form class="search">
         <div class="gap-2 flex">
-        <svg
-          class="search-icon"
-          stroke="currentColor"
-          fill="none"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          height="1em"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-
-        <input
-          class="searchbar"
-          type="text"
-          id="search"
-          v-model="searchbar"
-          @input="searchMovies"
-          placeholder="Rechercher par le prénom"
-        />
-        <select
-          id="category"
-          class="select"
-          v-model="selectedNationality"
-          @change="filterByCategory"
-        >
-          <option value="">Toutes les catégories</option>
-          <option
-            v-for="nationality in dataNationality"
-            :key="nationality.id"
-            :value="nationality.id"
+          <svg
+            class="search-icon"
+            stroke="currentColor"
+            fill="none"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            {{ nationality.nationalite }}
-          </option>
-        </select>
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+
+          <input
+            class="searchbar"
+            type="text"
+            id="search"
+            v-model="searchbar"
+            @input="searchMovies"
+            placeholder="Rechercher par le prénom"
+          />
+          <select
+            id="category"
+            class="select"
+            v-model="selectedNationality"
+            @change="filterByCategory"
+          >
+            <option value="">Toutes les catégories</option>
+            <option
+              v-for="nationality in dataNationality"
+              :key="nationality.id"
+              :value="nationality.id"
+            >
+              {{ nationality.nationalite }}
+            </option>
+          </select>
         </div>
         <CreateActor />
       </form>
