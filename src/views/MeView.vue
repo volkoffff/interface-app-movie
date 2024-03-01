@@ -2,6 +2,7 @@
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import EditPassword from "../components/EditPassword.vue";
+import Logout from "../components/Logout.vue";
 
 const errorModificationJson = ref(null);
 const meData = ref();
@@ -113,6 +114,7 @@ function textToJson(inputText) {
         </div>
         <h2>{{ firstName }}{{ " " }}{{ lastName }}</h2>
       </div>
+      <Logout class="logout" />
     </div>
     <div class="me-container-top">
       <h3>Informations personnelles</h3>
@@ -236,6 +238,11 @@ function textToJson(inputText) {
   border-radius: 50%;
   border: 4px solid #fff;
   box-shadow: 0px 10px 20px 0px #00000066;
+}
+.logout {
+  position: absolute;
+  bottom: -50px;
+  right: 20px;
 }
 .me-container {
   padding-top: 5rem;
