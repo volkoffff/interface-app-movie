@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import EditPassword from "../components/EditPassword.vue";
 
 const errorModificationJson = ref(null);
 const meData = ref();
@@ -38,6 +39,7 @@ const cancelAccount = () => {
   email.value = meData.value.email;
   firstName.value = meData.value.firstName;
   lastName.value = meData.value.lastName;
+  errorModificationJson.value = null;
 };
 
 const handleEdit = (e) => {
@@ -67,6 +69,7 @@ const saveAccount = async () => {
     );
 
     edition.value = !edition.value;
+    fetchMe();
   } catch (error) {
     if (error.response.status == 422) {
       errorModificationJson.value = textToJson(
@@ -81,13 +84,33 @@ const saveAccount = async () => {
     );
   }
 };
+
+function textToJson(inputText) {
+  const lines = inputText.split("\n");
+  const result = {};
+
+  lines.forEach((line) => {
+    // Utiliser une expression régulière pour extraire la clé et la valeur
+    const match = line.match(/([^:]+): (.+)/);
+
+    if (match) {
+      const key = match[1].trim();
+      const value = match[2].trim();
+      result[key] = value;
+    }
+  });
+
+  return result;
+}
 </script>
 
 <template>
   <div class="me-container">
     <div class="banner-grb">
       <div class="banner-rgb-">
-        <div class="rond"></div>
+        <div class="rond" v-if="firstName && lastName">
+          {{ Array.from(firstName)[0] }}{{ Array.from(lastName)[0] }}
+        </div>
         <h2>{{ firstName }}{{ " " }}{{ lastName }}</h2>
       </div>
     </div>
@@ -104,7 +127,19 @@ const saveAccount = async () => {
                 id="firstName"
                 v-model="firstName"
                 :disabled="!edition"
+                :class="[
+                  {
+                    'error-border':
+                      errorModificationJson && errorModificationJson.firstName,
+                  },
+                ]"
               />
+              <div
+                class="error-text"
+                v-if="errorModificationJson && errorModificationJson.firstName"
+              >
+                • {{ errorModificationJson.firstName }}
+              </div>
             </div>
             <div class="input-form">
               <label for="lastName">Prénom</label>
@@ -113,7 +148,19 @@ const saveAccount = async () => {
                 id="lastName"
                 v-model="lastName"
                 :disabled="!edition"
+                :class="[
+                  {
+                    'error-border':
+                      errorModificationJson && errorModificationJson.lastName,
+                  },
+                ]"
               />
+              <div
+                class="error-text"
+                v-if="errorModificationJson && errorModificationJson.lastName"
+              >
+                • {{ errorModificationJson.lastName }}
+              </div>
             </div>
             <div class="input-form">
               <label for="email">Email</label>
@@ -122,12 +169,24 @@ const saveAccount = async () => {
                 id="email"
                 v-model="email"
                 :disabled="!edition"
+                :class="[
+                  {
+                    'error-border':
+                      errorModificationJson && errorModificationJson.email,
+                  },
+                ]"
               />
+              <div
+                class="error-text"
+                v-if="errorModificationJson && errorModificationJson.email"
+              >
+                • {{ errorModificationJson.email }}
+              </div>
             </div>
           </form>
         </div>
         <div class="me-container-top-content-bottom">
-          <button class="gray-link">modifier le mot de passe</button>
+          <EditPassword />
 
           <button v-if="!edition" class="main-btn" @click="handleEdit">
             Modifier
@@ -163,12 +222,17 @@ const saveAccount = async () => {
 }
 .banner-rgb- > h2 {
   font-size: 2.5rem;
-  margin-left: 5px;
+  margin-left: 15px;
 }
 .banner-rgb- > .rond {
+  display: grid;
+  place-content: center;
+  font-size: 60px;
+  font-weight: 700;
+  text-transform: uppercase;
   width: 120px;
   height: 120px;
-  background: #a6ce55;
+  background: #46906e;
   border-radius: 50%;
   border: 4px solid #fff;
   box-shadow: 0px 10px 20px 0px #00000066;
