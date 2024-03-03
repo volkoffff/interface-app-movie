@@ -7,7 +7,7 @@ export default ({ mode }) => {
   // Load app-level env vars to node-level env vars.
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
-  const base = mode === "production" ? "/interface-app-movie/" : "./";
+  const base = mode === "production" ? "/interface-app-movie/dist/" : "./";
 
   return defineConfig({
     base,
