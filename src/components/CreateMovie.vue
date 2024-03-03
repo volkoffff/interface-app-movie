@@ -3,7 +3,7 @@ import axios from "axios";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import MultiSelect from "../components/MultiSelect.vue";
-import Selectcategorie from "./selectCategorie.vue";
+import Selectcategorie from "./SelectCategorie.vue";
 
 const route = useRoute();
 
