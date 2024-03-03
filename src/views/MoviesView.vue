@@ -17,7 +17,9 @@ const fetchMovies = async (page) => {
   if (searchbar.value) {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/movies?title=${searchbar.value}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/movies?title=${
+          searchbar.value
+        }`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -33,7 +35,7 @@ const fetchMovies = async (page) => {
   } else {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/movies?page=${page}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/movies?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -75,11 +77,14 @@ const prevPage = () => {
 };
 
 const fetchDataCategorie = async () => {
-  const response2 = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/categories`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
+  const response2 = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/api/categories`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    }
+  );
   dataCategorie.value = response2.data["hydra:member"];
 };
 const filterByCategory = () => {

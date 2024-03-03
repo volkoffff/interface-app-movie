@@ -10,7 +10,7 @@ const rePassword = ref("");
 
 const fetchMe = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/me`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/me`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       },
@@ -40,7 +40,7 @@ const editPaswword = async () => {
     errorModificationJson.value = null;
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/users/${id.value}/reset-password`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/${id.value}/reset-password`,
         data,
         {
           headers: {

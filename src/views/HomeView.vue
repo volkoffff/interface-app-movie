@@ -10,7 +10,7 @@ const dataActor = ref("");
 
 onMounted(async () => {
   const response = await axios.get(
-    `${import.meta.env.VITE_API_BASE_URL}/movies`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/movies`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -21,11 +21,14 @@ onMounted(async () => {
 });
 
 onMounted(async () => {
-  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/actors`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
+  const response = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/api/actors`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    }
+  );
   dataActor.value = response.data["hydra:member"];
 });
 

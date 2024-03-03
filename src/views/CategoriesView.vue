@@ -1,14 +1,17 @@
 <script setup>
-import categoriesCard from "../components/categoriesCard.vue";
-import { onMounted, ref, computed } from "vue";
 import axios from "axios";
+import { computed, onMounted, ref } from "vue";
+import categoriesCard from "../components/categoriesCard.vue";
 
 onMounted(async () => {
-  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/actors`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
+  const response = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/api/actors`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    }
+  );
   data.value = response.data["hydra:member"];
 });
 
@@ -44,14 +47,17 @@ const displayedData = computed(() => {
 const totalPages = computed(() => Math.ceil(data.value.length / itemsPerPage));
 
 const fetchData = async () => {
-  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/categories`, {
-    params: {
-      name: searchQuery.value, // Utilisez la valeur de recherche dans la requête
-    },
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
+  const response = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/api/categories`,
+    {
+      params: {
+        name: searchQuery.value, // Utilisez la valeur de recherche dans la requête
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    }
+  );
   data.value = response.data["hydra:member"];
   dataSaved.value = response.data["hydra:member"];
 };

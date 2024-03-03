@@ -57,11 +57,14 @@ export default {
 
     async function loadDataFromApi() {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/actors/`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/actors/`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          }
+        );
         apiData.value = response.data["hydra:member"];
         console.log(apiData.value);
       } catch (error) {

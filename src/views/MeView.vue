@@ -14,11 +14,14 @@ const edition = ref(false);
 
 const fetchMe = async () => {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/me`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    });
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_BASE_URL}/api/me`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      }
+    );
     meData.value = response.data;
     email.value = response.data.email;
     firstName.value = response.data.firstName;
@@ -59,7 +62,7 @@ const saveAccount = async () => {
   errorModificationJson.value = null;
   try {
     await axios.patch(
-      `${import.meta.env.VITE_API_BASE_URL}/users/${id.value}`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/users/${id.value}`,
       editedData,
       {
         headers: {

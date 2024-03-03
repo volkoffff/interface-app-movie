@@ -41,7 +41,7 @@ onMounted(() => {
 // Fonction pour charger les données du film
 const load = async () => {
   const response = await axios.get(
-    `${import.meta.env.VITE_API_BASE_URL}/movies/${routeId}`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/movies/${routeId}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -57,7 +57,7 @@ const load = async () => {
 
   // get category name
   const response2 = await axios.get(
-    `${import.meta.env.VITE_API_BASE_URL}/movies`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/movies`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -125,7 +125,7 @@ async function updateMovieTitle() {
 
       // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
       await axios.patch(
-        `${import.meta.env.VITE_API_BASE_URL}/movies/${data.value.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/movies/${data.value.id}`,
         updatedMovie,
         { headers }
       );

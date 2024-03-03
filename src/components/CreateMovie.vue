@@ -49,7 +49,7 @@ const addMovie = async () => {
   errorModificationJson.value = null;
   try {
     await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/movies`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/movies`,
       editedMovie,
       {
         headers: {

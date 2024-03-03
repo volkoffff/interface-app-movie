@@ -22,7 +22,7 @@ if (!movieData.value) {
 
   onMounted(async () => {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_BASE_URL}/movies/${movieId.value}`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/movies/${movieId.value}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -51,7 +51,7 @@ watch(
 async function fetchMovie(id) {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_BASE_URL}/movies/${id}`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/movies/${id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,

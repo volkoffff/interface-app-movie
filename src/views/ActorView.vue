@@ -28,7 +28,7 @@ onMounted(() => {
 
 const load = async () => {
   const response = await axios.get(
-    `${import.meta.env.VITE_API_BASE_URL}/actors/${routeId}`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/actors/${routeId}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -39,7 +39,7 @@ const load = async () => {
 
   // list of all movies
   const response2 = await axios.get(
-    `${import.meta.env.VITE_API_BASE_URL}/movies`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/movies`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -77,7 +77,7 @@ async function updateMovieTitle() {
       }); // Nouveau titre du film
       // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
       await axios.patch(
-        `${import.meta.env.VITE_API_BASE_URL}/actors/${data.value.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/actors/${data.value.id}`,
         updatedActor,
         { headers }
       );

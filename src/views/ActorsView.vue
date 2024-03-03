@@ -17,7 +17,7 @@ const fetchMovies = async (page) => {
   if (searchbar.value) {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/actors?firstName=${
+        `${import.meta.env.VITE_API_BASE_URL}/api/actors?firstName=${
           searchbar.value
         }`,
         {
@@ -35,7 +35,7 @@ const fetchMovies = async (page) => {
   } else {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/actors?page=${page}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/actors?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -77,11 +77,14 @@ const prevPage = () => {
 };
 
 const fetchDataCategorie = async () => {
-  const response2 = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/nationalites`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
+  const response2 = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/api/nationalites`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    }
+  );
   dataNationality.value = response2.data["hydra:member"];
 };
 const filterByCategory = () => {

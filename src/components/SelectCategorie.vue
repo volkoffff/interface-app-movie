@@ -41,7 +41,7 @@ export default {
       try {
         // Remplacez l'URL de l'API par votre propre URL
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/categories`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/categories`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
