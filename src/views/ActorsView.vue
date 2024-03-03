@@ -1,8 +1,8 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
-import actorsCard from "../components/actorsCard.vue";
 import CreateActor from "../components/CreateActor.vue";
+import actorsCard from "../components/actorsCard.vue";
 
 const dataNationality = ref([]);
 const selectedNationality = ref("");
@@ -17,7 +17,9 @@ const fetchMovies = async (page) => {
   if (searchbar.value) {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/actors?firstName=${searchbar.value}`,
+        `${import.meta.env.VITE_API_BASE_URL}/actors?firstName=${
+          searchbar.value
+        }`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -33,7 +35,7 @@ const fetchMovies = async (page) => {
   } else {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/actors?page=${page}`,
+        `${import.meta.env.VITE_API_BASE_URL}/actors?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -75,7 +77,7 @@ const prevPage = () => {
 };
 
 const fetchDataCategorie = async () => {
-  const response2 = await axios.get("http://127.0.0.1:8000/api/nationalites", {
+  const response2 = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/nationalites`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },

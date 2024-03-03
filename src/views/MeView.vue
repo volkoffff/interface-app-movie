@@ -14,7 +14,7 @@ const edition = ref(false);
 
 const fetchMe = async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/me", {
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/me`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       },
@@ -59,7 +59,7 @@ const saveAccount = async () => {
   errorModificationJson.value = null;
   try {
     await axios.patch(
-      `http://127.0.0.1:8000/api/users/${id.value}`,
+      `${import.meta.env.VITE_API_BASE_URL}/users/${id.value}`,
       editedData,
       {
         headers: {

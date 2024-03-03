@@ -9,16 +9,19 @@ const data = ref("");
 const dataActor = ref("");
 
 onMounted(async () => {
-  const response = await axios.get("http://127.0.0.1:8000/api/movies", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    },
-  });
+  const response = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/movies`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    }
+  );
   data.value = response.data["hydra:member"];
 });
 
 onMounted(async () => {
-  const response = await axios.get("http://127.0.0.1:8000/api/actors", {
+  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/actors`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },

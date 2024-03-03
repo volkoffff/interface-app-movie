@@ -47,7 +47,7 @@ export default {
       try {
         // Remplacez l'URL de l'API par votre propre URL
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/nationalites`,
+          `${import.meta.env.VITE_API_BASE_URL}/nationalites`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,

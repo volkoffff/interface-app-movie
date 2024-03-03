@@ -11,7 +11,7 @@ onMounted(async () => {
 })
 
 const fetchData = async () => {
-  const response = await axios.get('http://127.0.0.1:8000/api/movies', {
+  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/movies`, {
     params: {
       title: searchQuery.value, // Utilisez la valeur de recherche dans la requête
     },

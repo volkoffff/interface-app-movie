@@ -25,11 +25,15 @@ const addMovie = async () => {
   console.log(editedMovie);
   errorModificationJson.value = null;
   try {
-    await axios.post(`http://127.0.0.1:8000/api/actors`, editedMovie, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    });
+    await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/actors`,
+      editedMovie,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      }
+    );
 
     // Réinitialiser la sélection du film après modification
     EditState.value = false;

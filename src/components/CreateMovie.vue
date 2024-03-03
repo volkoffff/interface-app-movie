@@ -48,11 +48,15 @@ const addMovie = async () => {
   console.log(editedMovie);
   errorModificationJson.value = null;
   try {
-    await axios.post(`http://127.0.0.1:8000/api/movies`, editedMovie, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    });
+    await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/movies`,
+      editedMovie,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      }
+    );
 
     // Réinitialiser la sélection du film après modification
     EditState.value = false;
@@ -262,13 +266,13 @@ function toggleModifyFalse() {
 
         <div class="form-group">
           <label>Acteurs dans le film </label>
-          <MultiSelect @infoAuParent="recevoirInfoDuEnfant" >
+          <MultiSelect @infoAuParent="recevoirInfoDuEnfant">
             <div
-            class="error-text"
-            v-if="errorModificationJson && errorModificationJson.actors"
-          >
-            • {{ errorModificationJson.actors }}
-          </div>
+              class="error-text"
+              v-if="errorModificationJson && errorModificationJson.actors"
+            >
+              • {{ errorModificationJson.actors }}
+            </div>
           </MultiSelect>
         </div>
 

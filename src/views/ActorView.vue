@@ -16,7 +16,7 @@ const editedActorLastName = ref("");
 const errorModificationJson = ref(null);
 
 const selectedValue = ref(null);
-const allMoviesData = ref('');
+const allMoviesData = ref("");
 
 function handleSelectionChange(value) {
   selectedValue.value = value;
@@ -28,7 +28,7 @@ onMounted(() => {
 
 const load = async () => {
   const response = await axios.get(
-    `http://127.0.0.1:8000/api/actors/${routeId}`,
+    `${import.meta.env.VITE_API_BASE_URL}/actors/${routeId}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -38,12 +38,15 @@ const load = async () => {
   data.value = response.data;
 
   // list of all movies
-  const response2 = await axios.get(`http://127.0.0.1:8000/api/movies`, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-        },
-    });
-    allMoviesData.value = response2.data['hydra:member'];
+  const response2 = await axios.get(
+    `${import.meta.env.VITE_API_BASE_URL}/movies`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    }
+  );
+  allMoviesData.value = response2.data["hydra:member"];
 
   //attribution of data for the modal
   editedActorFisrtName.value = data.value.firstName;
@@ -74,7 +77,7 @@ async function updateMovieTitle() {
       }); // Nouveau titre du film
       // Envoyer la requête PATCH à l'API pour mettre à jour le titre du film
       await axios.patch(
-        `http://127.0.0.1:8000/api/actors/${data.value.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/actors/${data.value.id}`,
         updatedActor,
         { headers }
       );
@@ -204,7 +207,8 @@ function textToJson(inputText) {
               >
                 <path
                   d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"
-                ></path></svg>Vidéo biographie
+                ></path></svg
+              >Vidéo biographie
             </button>
             <div @click="toggleModifyTrue()" class="translucide-main-btn">
               <svg

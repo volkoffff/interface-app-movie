@@ -57,7 +57,7 @@ export default {
 
     async function loadDataFromApi() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/actors/", {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/actors/`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },

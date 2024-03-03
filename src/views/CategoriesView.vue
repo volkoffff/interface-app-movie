@@ -4,7 +4,7 @@ import { onMounted, ref, computed } from "vue";
 import axios from "axios";
 
 onMounted(async () => {
-  const response = await axios.get("http://127.0.0.1:8000/api/actors", {
+  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/actors`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
@@ -44,7 +44,7 @@ const displayedData = computed(() => {
 const totalPages = computed(() => Math.ceil(data.value.length / itemsPerPage));
 
 const fetchData = async () => {
-  const response = await axios.get("http://127.0.0.1:8000/api/categories", {
+  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/categories`, {
     params: {
       name: searchQuery.value, // Utilisez la valeur de recherche dans la requête
     },

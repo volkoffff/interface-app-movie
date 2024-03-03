@@ -41,7 +41,7 @@ export default {
       try {
         // Remplacez l'URL de l'API par votre propre URL
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/categories`,
+          `${import.meta.env.VITE_API_BASE_URL}/categories`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
