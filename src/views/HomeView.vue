@@ -178,7 +178,7 @@ onMounted(() => {
   <div class="home-container">
     <div class="home-top">
       <h1>
-        Muvy Le site favori des <span class="text-blue">Cinnéphyles</span>
+        Muvy Le site favori des <span class="text-blue">Cinéphiles</span>
       </h1>
       <p>
         Cette plateforme pemet aux utilisateurs de noter leurs film préférer et

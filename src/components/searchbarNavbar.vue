@@ -63,15 +63,15 @@ document.addEventListener("DOMContentLoaded", () => {
     />
     <div class="searchbar-navbar-result">
       <div v-for="(movie, index) in data" :key="movie.id">
-        <div class="movie-card">
+          <RouterLink class="movie-card" :to="`/movie/${movie.id}`">
           <div
             class="movie-card-image"
             style="
-              background-image: url(https://i.etsystatic.com/27725708/r/il/008c5a/2904647259/il_fullxfull.2904647259_ilg7.jpg);
+              background-image: url(https://fr.web.img5.acsta.net/pictures/23/04/03/15/05/1583867.jpg/r_5000_x);
             "
           ></div>
           <p class="movie-card-title">{{ movie.title }}</p>
-        </div>
+          </RouterLink>
       </div>
     </div>
   </div>

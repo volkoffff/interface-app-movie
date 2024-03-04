@@ -458,7 +458,7 @@ function textToJson(inputText) {
               :actorsID="actors"
               @infoAuParent="recevoirInfoDuEnfant"
             />
-            <p>Informations du parent : {{ informationsDuEnfant }}</p>
+            <!-- <p>Informations du parent : {{ informationsDuEnfant }}</p> -->
           </div>
 
           <div class="container-btn">

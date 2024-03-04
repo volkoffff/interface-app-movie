@@ -12,7 +12,7 @@
     />
   </div>
   <slot></slot>
-  {{ value }}
+  <!-- {{ value }} -->
 </template>
 
 <script>
