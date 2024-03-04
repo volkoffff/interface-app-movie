@@ -77,7 +77,7 @@ const previousPage = () => {
 
 <template>
   <div style="padding-top: 5rem">
-    <div class="actors-list" v-if="data">
+    <div class="categories-list" v-if="data">
       <h3>Liste des catégories</h3>
       <form class="search">
         <svg
@@ -169,9 +169,9 @@ const previousPage = () => {
 </template>
 
 <style>
-.actors-list {
+.categories-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
   padding-inline: 5vw;
   justify-content: center;
   gap: 14px;
@@ -179,7 +179,7 @@ const previousPage = () => {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-.actors-list > h3 {
+.categories-list > h3 {
   grid-column: 1/-1;
 }
 form {
