@@ -12,7 +12,7 @@
     />
   </div>
   <slot></slot>
-  <!-- {{ value }} -->
+  {{ value }}
 </template>
 
 <script>
@@ -46,7 +46,7 @@ export default {
       console.log("Initial value:", value.value);
       console.log("Transformed options:", transformedOptions.value);
 
-      envoyerInfoAuParent(value);
+      envoyerInfoAuParent(value.value);
     });
 
     watch(value, (newValue) => {

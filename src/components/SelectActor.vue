@@ -55,6 +55,10 @@ export default {
           }
         );
         this.options = response.data["hydra:member"];
+        if (this.defaultValue == null) {
+          this.selectedOption = this.options[0].id;
+          this.emitSelection();
+        }
         console.log(this.options);
       } catch (error) {
         console.error(
