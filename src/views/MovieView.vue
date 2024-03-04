@@ -6,6 +6,7 @@ import { RouterLink, useRoute } from "vue-router";
 import MultiSelect from "../components/MultiSelect.vue";
 import SelectCategorie from "../components/SelectCategorie.vue";
 import moviesCard from "../components/moviesCard.vue";
+import DeleteMovie from "../components/DeleteMovie.vue";
 
 const route = useRoute();
 const routeId = route.params.id;
@@ -462,6 +463,7 @@ function textToJson(inputText) {
           </div>
 
           <div class="container-btn">
+            <DeleteMovie />
             <button type="submit" class="btn main-btn">Modifier</button>
           </div>
         </form>
@@ -550,4 +552,4 @@ function textToJson(inputText) {
   height: 80px;
   width: 700px;
 }
-</style>
+</style>../components/DeleteMovie.vue

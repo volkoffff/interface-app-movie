@@ -4,6 +4,7 @@ import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import SelectActor from "../components/SelectActor.vue";
 import moviesCard from "../components/moviesCard.vue";
+import DeleteActor from "../components/DeleteActor.vue";
 
 const route = useRoute();
 const routeId = route.params.id;
@@ -338,6 +339,7 @@ function textToJson(inputText) {
           />
 
           <div class="container-btn">
+            <DeleteActor />
             <button type="submit" class="btn main-btn">Modifier</button>
           </div>
         </form>

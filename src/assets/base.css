@@ -166,6 +166,8 @@ button:hover {
   justify-content: flex-end;
   padding: 15px;
   padding-top: 0;
+  align-items: center;
+  gap: 10px;
 }
 .form-modal > .container-btn > button {
   border: 0;

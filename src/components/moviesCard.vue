@@ -72,7 +72,7 @@ async function fetchMovie(id) {
         <div
           class="recommendation"
           style="
-            background: url('https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/img-hapi.canalplus.pro:80/ServiceImage/ImageID/110777241');
+            background: url('https://occ-0-2794-2219.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABehTxClIItyfdHm85NAUu6RcDcpw_0d8P2Tk-Qc5v3GU7COvnf8ljvvicQCkgGNKASnQc4xxtGW8UFonxG8_YK6I7zds-DVSYL7l.jpg?r=31e');
             background-position: center;
           "
         >
