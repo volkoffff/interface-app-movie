@@ -36,7 +36,10 @@ button:hover {
   align-items: center;
 }
 .main-btn:hover {
-  background: #2d79d6;
+  background: #2d77d1;
+}
+.main-btn:active {
+  background: #306fbc;
 }
 .secondary-btn {
   border: 0;
