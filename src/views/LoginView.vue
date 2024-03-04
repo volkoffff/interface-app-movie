@@ -34,7 +34,7 @@
         // Stocker le token dans la variable authToken
         authToken.value = data.token;
 
-        location.href = "/"
+        location.href = `${import.meta.env.VITE_DEFAULT_BASE_URL}`
 
         console.log('Formulaire soumis avec succès');
       } else {
