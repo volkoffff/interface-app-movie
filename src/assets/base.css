@@ -308,12 +308,27 @@ header {
     width: 100%;
   }
 }
+@media screen and (max-width: 768px) {
+  .top-movie-bottom {
+    flex-direction: column;
+  }
+  .top-movie {
+    height: fit-content !important;
+  }
+  .top-movie-cache {
+    height: 100% !important;
+  }
+  .top-actor {
+    height: fit-content !important;
+  }
+}
 .top-movie-cache {
   height: 100vh;
   position: absolute;
   backdrop-filter: blur(20px);
   width: 100%;
   z-index: 1;
+  top: 0;
 }
 .top-movie-bottom {
   position: relative;
@@ -469,7 +484,7 @@ header {
   padding: 20px;
 }
 .home-top > h1 {
-  font-size: 55px;
+  font-size: clamp(1.5rem, 8vw, 4rem);
   width: 20ch;
   letter-spacing: -2px;
   line-height: 58px;
