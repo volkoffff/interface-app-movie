@@ -153,7 +153,7 @@ function toggleModifyFalse() {
           </div>
         </div>
         <div class="form-group">
-          <label for="editMovieTitle">Comfirmation du mot de passe</label>
+          <label for="editMovieTitle">confirmation du mot de passe</label>
           <input
             :class="[
               {
@@ -165,7 +165,7 @@ function toggleModifyFalse() {
             class="form-control"
             id="editMovieTitle"
             v-model="rePassword"
-            placeholder="Comfirmation du mot de passe"
+            placeholder="confirmation du mot de passe"
             @keydown="samePassword"
           />
 

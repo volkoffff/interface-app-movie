@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     />
     <div class="searchbar-navbar-result">
       <div v-for="(movie, index) in data" :key="movie.id">
-          <RouterLink class="movie-card" :to="`/movie/${movie.id}`">
+        <RouterLink class="movie-card" :to="`/movie/${movie.id}`">
           <div
             class="movie-card-image"
             style="
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "
           ></div>
           <p class="movie-card-title">{{ movie.title }}</p>
-          </RouterLink>
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -132,6 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
     black 50%,
     black 100%
   );
+}
+@media screen and (max-width: 768px) {
+  .searchbar-navbar-result {
+    width: 100% !important;
+    top: 274px !important;
+    padding: 0 !important;
+    right: -100%;
+  }
 }
 .movie-card {
   display: flex;
